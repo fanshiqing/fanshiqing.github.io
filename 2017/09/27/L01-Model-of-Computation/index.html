@@ -95,21 +95,21 @@
 
 
 
-<meta name="description" content="Essential Issues of Alogrithm Model of computation Algorithm design Algorithm analysis  Asynchronous &amp;amp; Synchronous System A system is said to be asynchronous if there is no fixed upper bound on ho">
+<meta name="description" content="Essential Issues of Alogrithm Model of computation Algorithm design Algorithm analysis  Asynchronous &amp;amp; Synchronous System Asynchronous System. A system is said to be asynchronous if there is no fi">
 <meta name="keywords" content="分布式算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="L01-Model of Computation">
 <meta property="og:url" content="http://fanshiqing.github.io/2017/09/27/L01-Model-of-Computation/index.html">
 <meta property="og:site_name" content="Shiqing Fan&#39;s Blog">
-<meta property="og:description" content="Essential Issues of Alogrithm Model of computation Algorithm design Algorithm analysis  Asynchronous &amp;amp; Synchronous System A system is said to be asynchronous if there is no fixed upper bound on ho">
+<meta property="og:description" content="Essential Issues of Alogrithm Model of computation Algorithm design Algorithm analysis  Asynchronous &amp;amp; Synchronous System Asynchronous System. A system is said to be asynchronous if there is no fi">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/y88ifg3v7sobz4s4vdhvegub/image_1btlmrsqq14c81l3ks2f5j5n2b9.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/m94fg25wndazqj6t2xsudhkm/image_1btmomv42gua1lo01eoj5duvos9.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/9pay9edubua92wzyii7axxqw/image_1btmqsj1c17d9ltl4h1nmm7o13.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/0eed7sgn0qpo255jag7onj1o/image_1btmrqvvr9hs33n1rt619pe1sgv1g.png">
-<meta property="og:updated_time" content="2017-10-31T12:34:24.000Z">
+<meta property="og:updated_time" content="2017-11-05T08:38:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="L01-Model of Computation">
-<meta name="twitter:description" content="Essential Issues of Alogrithm Model of computation Algorithm design Algorithm analysis  Asynchronous &amp;amp; Synchronous System A system is said to be asynchronous if there is no fixed upper bound on ho">
+<meta name="twitter:description" content="Essential Issues of Alogrithm Model of computation Algorithm design Algorithm analysis  Asynchronous &amp;amp; Synchronous System Asynchronous System. A system is said to be asynchronous if there is no fi">
 <meta name="twitter:image" content="http://static.zybuluo.com/sqfan/y88ifg3v7sobz4s4vdhvegub/image_1btlmrsqq14c81l3ks2f5j5n2b9.png">
 
 
@@ -424,9 +424,17 @@
 <li>Algorithm analysis</li>
 </ul>
 <h2 id="Asynchronous-amp-Synchronous-System"><a href="#Asynchronous-amp-Synchronous-System" class="headerlink" title="Asynchronous &amp; Synchronous System"></a>Asynchronous &amp; Synchronous System</h2><blockquote>
-<p>A system is said to be asynchronous if there is no fixed upper bound on how long it takes for a message to be delivered (message delays) or how much time elapses between consectutive steps of a processor (processor step time) [1].</p>
-<p>In the synchronous model processors execute in lockstep: The execution is partitioned into rounds, and in each round, every processor can send a message to each neighbour, the messages are delivered, and every processor computes based on the messages just received. (This model is convenient for designing algorithms) [1]</p>
+<p><strong>Asynchronous System</strong>. A system is said to be asynchronous if there is no fixed upper bound on how long it takes for a message to be delivered (message delays) or how much time elapses between consectutive steps of a processor (processor step time) [1].</p>
+<p><strong>Synchronous System</strong>. In the synchronous model processors execute in lockstep: The execution is partitioned into rounds, and in each round, every processor can send a message to each neighbour, the messages are delivered, and every processor computes based on the messages just received. (This model is convenient for designing algorithms) [1]</p>
 </blockquote>
+<p><strong>Why asynchronous systems</strong>?</p>
+<ul>
+<li>Sometimes the upper bounds are quite large, are infrequently reached and change over time.</li>
+<li>It is often desiable to design an algorithm that is <code>independent of any particular timing parameters</code>, namely an asynchronous algorithm<ul>
+<li>Instead of design an algorithms that depends on the bounds </li>
+</ul>
+</li>
+</ul>
 <h2 id="Random-Access-Machine-RAM-Model"><a href="#Random-Access-Machine-RAM-Model" class="headerlink" title="Random Access Machine (RAM) Model"></a>Random Access Machine (<strong>RAM</strong>) Model</h2><p>The goal of working with a <strong>model</strong> computer instead of a <strong>real</strong> computer is that we want to have a machine, which is as easy as possible, but still let us capture the main aspects of a real computer.</p>
 <p>This model of computation is an abstraction that allows us to <strong>compare algorithms on the basis of performance</strong>. Simplifications for RAM model:</p>
 <ul>
@@ -580,6 +588,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/10/05/L02-Basic-Message-Passing-Algorithms/" rel="prev" title="L02-Basic-Message-Passing-Algorithms">
+                L02-Basic-Message-Passing-Algorithms <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -675,7 +687,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
