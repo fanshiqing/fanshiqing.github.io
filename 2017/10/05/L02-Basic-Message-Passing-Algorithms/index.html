@@ -98,17 +98,18 @@
 <meta name="description" content="[TOC] Broadcast over a rooted spanning tree Broadcast is used to send the information to all. Suppose processors already have information about a rooted spanning tree of the communication topology tre">
 <meta name="keywords" content="分布式算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="L02-Basic-Message-Passing-Algorithms">
+<meta property="og:title" content="L02-Basic Message Passing Algorithms">
 <meta property="og:url" content="http://fanshiqing.github.io/2017/10/05/L02-Basic-Message-Passing-Algorithms/index.html">
 <meta property="og:site_name" content="Shiqing Fan&#39;s Blog">
 <meta property="og:description" content="[TOC] Broadcast over a rooted spanning tree Broadcast is used to send the information to all. Suppose processors already have information about a rooted spanning tree of the communication topology tre">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/digj1gg45grlsp7yqlbxy387/image_1bu5gq7v33lgv161mc1lef1g9t9.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Flooding_routing.gif/220px-Flooding_routing.gif">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/xdwf7bfg97pumdx3j45v8trt/image_1bu5ifmh212aq1a9oauomuchdn16.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/6j4qhtilocj6kqjq3cusu57p/image_1bu5jha1n20n14gm0p1u3c198i20.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/sb92i2ocjs27079je9k9axtg/image_1bu5k3agccbb1no917v3iak19gk2d.png">
-<meta property="og:updated_time" content="2017-11-05T08:34:57.000Z">
+<meta property="og:updated_time" content="2017-11-07T05:52:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="L02-Basic-Message-Passing-Algorithms">
+<meta name="twitter:title" content="L02-Basic Message Passing Algorithms">
 <meta name="twitter:description" content="[TOC] Broadcast over a rooted spanning tree Broadcast is used to send the information to all. Suppose processors already have information about a rooted spanning tree of the communication topology tre">
 <meta name="twitter:image" content="http://static.zybuluo.com/sqfan/digj1gg45grlsp7yqlbxy387/image_1bu5gq7v33lgv161mc1lef1g9t9.png">
 
@@ -144,7 +145,7 @@
 
 
 
-  <title>L02-Basic-Message-Passing-Algorithms | Shiqing Fan's Blog</title>
+  <title>L02-Basic Message Passing Algorithms | Shiqing Fan's Blog</title>
   
 
 
@@ -334,7 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">L02-Basic-Message-Passing-Algorithms</h1>
+          <h1 class="post-title" itemprop="name headline">L02-Basic Message Passing Algorithms</h1>
         
 
         <div class="post-meta">
@@ -424,7 +425,7 @@
 <li>Suppose processors <strong>already have information about a rooted spanning tree of the communication topology</strong><ul>
 <li>tree: connected graph with no cycles</li>
 <li>spanning tree: contains all processors</li>
-<li>rooted: there is a unique root nodes</li>
+<li>rooted: there is a unique root node</li>
 </ul>
 </li>
 <li>Implemented via <code>parent</code> and <code>children</code> local varialbes at each processor.<ul>
@@ -460,17 +461,19 @@
 </ul>
 </li>
 </ul>
-<h2 id="Finding-a-Spanning-Tree-Given-a-Root-by-Flooding"><a href="#Finding-a-Spanning-Tree-Given-a-Root-by-Flooding" class="headerlink" title="Finding a Spanning Tree Given a Root by Flooding"></a>Finding a Spanning Tree Given a Root by Flooding</h2><ul>
-<li>root send <em>M</em> to all its neighbours</li>
-<li><p>when non-root first gets <em>M</em>,</p>
+<h2 id="Finding-a-Spanning-Tree-Given-a-Root-by-Flooding"><a href="#Finding-a-Spanning-Tree-Given-a-Root-by-Flooding" class="headerlink" title="Finding a Spanning Tree Given a Root by Flooding"></a>Finding a Spanning Tree Given a Root by Flooding</h2><blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Flooding_(computer_networking" target="_blank" rel="external">Flooding</a>): Flooding is a simple computer network routing algorithm in which every incoming packet is sent through every outgoing link except the one it arrived on.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Flooding_routing.gif/220px-Flooding_routing.gif" alt="flooding"></p>
+</blockquote>
 <ul>
+<li>root send <em>M</em> to all its neighbours</li>
+<li>when non-root first gets <em>M</em>,<ul>
 <li>set the sender as its parent</li>
 <li>send “parent” msg to sender</li>
 <li>send <em>M</em> to all other neighbours (if no other neighours, then terminate)</li>
 </ul>
 </li>
-<li><p>when get <em>M</em> otherwise,</p>
-<ul>
+<li>when get <em>M</em> otherwise,<ul>
 <li>send “reject” to sender.</li>
 </ul>
 </li>
@@ -576,6 +579,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/10/12/L03-Leader-Election-in-Rings/" rel="prev" title="L03-Leader Election in Rings">
+                L03-Leader Election in Rings <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -671,7 +678,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

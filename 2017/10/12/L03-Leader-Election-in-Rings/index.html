@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="闲情,羽毛球,相册," />
+  <meta name="keywords" content="分布式算法," />
 
 
 
@@ -95,30 +95,24 @@
 
 
 
-<meta name="description" content="Abstract 时间： 2017年1月7日 地点：上海财大（武川路校区）羽毛球馆（旧馆） 事件：第二届南大上海校友会新年羽毛球嘉年华活动 角色：第二次参加这个活动，本次担任 杨浦队 队长 ^_^ 赛制：趣味赛 + 团体赛 赛果：杨浦队在8支参赛队中勇夺 第4名 (历史最好成绩)！   趣味赛: 单手颠球，穿越障碍 三人隔网，你发我接（限时）   团体赛(8支) 徐汇、闵松、沿江、张江、花木、杨浦">
-<meta name="keywords" content="闲情,羽毛球,相册">
+<meta name="description" content="[Based on the book “Distributed Computing“ by Hagit attiya &amp;amp; Jennifer Welch] Preface Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of pr">
+<meta name="keywords" content="分布式算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【闲情】记 第二届南大上海校友会新年羽毛球嘉年华">
-<meta property="og:url" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/index.html">
+<meta property="og:title" content="L03-Leader Election in Rings">
+<meta property="og:url" content="http://fanshiqing.github.io/2017/10/12/L03-Leader-Election-in-Rings/index.html">
 <meta property="og:site_name" content="Shiqing Fan&#39;s Blog">
-<meta property="og:description" content="Abstract 时间： 2017年1月7日 地点：上海财大（武川路校区）羽毛球馆（旧馆） 事件：第二届南大上海校友会新年羽毛球嘉年华活动 角色：第二次参加这个活动，本次担任 杨浦队 队长 ^_^ 赛制：趣味赛 + 团体赛 赛果：杨浦队在8支参赛队中勇夺 第4名 (历史最好成绩)！   趣味赛: 单手颠球，穿越障碍 三人隔网，你发我接（限时）   团体赛(8支) 徐汇、闵松、沿江、张江、花木、杨浦">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/比赛海报.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/各队队长.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/赛前全体合影.JPG">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/大合影.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/比赛场地.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/比赛中.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/小宇宙组合.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/赛果.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/志愿者.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/yangpu1.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/yangpu2.jpeg">
-<meta property="og:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/赛后聚餐.jpeg">
-<meta property="og:updated_time" content="2017-07-09T10:57:25.000Z">
+<meta property="og:description" content="[Based on the book “Distributed Computing“ by Hagit attiya &amp;amp; Jennifer Welch] Preface Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of pr">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/qtrrif1ta6opgr54rx5071ij/image_1bue05vdhcjd1eb9rnt4do2spm.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/rveobgknzovji6jdsubae73v/image_1bug0fadc1e523b21fn7uqu1qn830.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/a2iw6dqxfppfi3o06tm3cftr/image_1bug5niima1fh3so2m1uua1jdp3d.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/faxuqz0jm6fxsyxjj6w9qd1m/image_1bug88k2j1tj7109p19ll12e096b4a.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/vl3eiohzz0fj2zt1y8g2y8yc/image_1bugc8ue119cphe614og1qjv1qrk4n.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/fxnyl4pjmr8co6i8hh5onfz0/image_1bugd4jjg1kvm1ff117bbo541k1l54.png">
+<meta property="og:updated_time" content="2017-11-09T13:21:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【闲情】记 第二届南大上海校友会新年羽毛球嘉年华">
-<meta name="twitter:description" content="Abstract 时间： 2017年1月7日 地点：上海财大（武川路校区）羽毛球馆（旧馆） 事件：第二届南大上海校友会新年羽毛球嘉年华活动 角色：第二次参加这个活动，本次担任 杨浦队 队长 ^_^ 赛制：趣味赛 + 团体赛 赛果：杨浦队在8支参赛队中勇夺 第4名 (历史最好成绩)！   趣味赛: 单手颠球，穿越障碍 三人隔网，你发我接（限时）   团体赛(8支) 徐汇、闵松、沿江、张江、花木、杨浦">
-<meta name="twitter:image" content="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/比赛海报.jpeg">
+<meta name="twitter:title" content="L03-Leader Election in Rings">
+<meta name="twitter:description" content="[Based on the book “Distributed Computing“ by Hagit attiya &amp;amp; Jennifer Welch] Preface Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of pr">
+<meta name="twitter:image" content="http://static.zybuluo.com/sqfan/qtrrif1ta6opgr54rx5071ij/image_1bue05vdhcjd1eb9rnt4do2spm.png">
 
 
 
@@ -146,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/"/>
+  <link rel="canonical" href="http://fanshiqing.github.io/2017/10/12/L03-Leader-Election-in-Rings/"/>
 
 
 
 
 
-  <title>【闲情】记 第二届南大上海校友会新年羽毛球嘉年华 | Shiqing Fan's Blog</title>
+  <title>L03-Leader Election in Rings | Shiqing Fan's Blog</title>
   
 
 
@@ -325,7 +319,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/">
+    <link itemprop="mainEntityOfPage" href="http://fanshiqing.github.io/2017/10/12/L03-Leader-Election-in-Rings/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shiqing Fan">
@@ -342,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【闲情】记 第二届南大上海校友会新年羽毛球嘉年华</h1>
+          <h1 class="post-title" itemprop="name headline">L03-Leader Election in Rings</h1>
         
 
         <div class="post-meta">
@@ -354,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-07T22:00:00+08:00">
-                2017-01-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T21:16:03+08:00">
+                2017-10-12
               </time>
             
 
@@ -377,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/闲情/" itemprop="url" rel="index">
-                    <span itemprop="name">闲情</span>
+                  <a href="/categories/Introduction-to-Distributed-Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Introduction to Distributed Algorithms</span>
                   </a>
                 </span>
 
@@ -395,8 +389,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://fanshiqing.github.io/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/" itemprop="commentCount">0</span> comments
+                <a href="/2017/10/12/L03-Leader-Election-in-Rings/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://fanshiqing.github.io/2017/10/12/L03-Leader-Election-in-Rings/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -426,47 +420,144 @@
       
 
       
-        <h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>时间： 2017年1月7日</li>
-<li>地点：上海财大（武川路校区）羽毛球馆（旧馆）</li>
-<li>事件：第二届南大上海校友会新年羽毛球嘉年华活动</li>
-<li>角色：第二次参加这个活动，本次担任 <font color="red">杨浦队</font> <strong>队长</strong> ^_^</li>
-<li>赛制：趣味赛 + 团体赛</li>
-<li><p>赛果：杨浦队在8支参赛队中勇夺 <strong><em>第4名</em></strong> (历史最好成绩)！</p>
-<blockquote>
+        <p>[Based on the book “<strong>Distributed Computing</strong>“ by Hagit attiya &amp; Jennifer Welch]</p>
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><ul>
+<li>Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of processors must choose one among them to be a leader.</li>
+<li>Present the different algorithms for leader election problem by taking the cases like anonymous/non-anonymous rings, uniform/non-uniform rings and synchronous/asynchronous rings etc.</li>
+</ul>
+<h2 id="Ring-Networks"><a href="#Ring-Networks" class="headerlink" title="Ring Networks"></a>Ring Networks</h2><p><img src="http://static.zybuluo.com/sqfan/qtrrif1ta6opgr54rx5071ij/image_1bue05vdhcjd1eb9rnt4do2spm.png" alt="image_1bue05vdhcjd1eb9rnt4do2spm.png-15.7kB"></p>
 <ul>
-<li>趣味赛:<ol>
-<li>单手颠球，穿越障碍</li>
-<li>三人隔网，你发我接（限时）</li>
-</ol>
-</li>
-<li>团体赛(8支)<ul>
-<li>徐汇、闵松、沿江、张江、花木、<font color="red"><strong>杨浦</strong></font>、长静黄联队、市北联队</li>
+<li>In an <code>oriented ring</code>, processors have a consistent notion of left and right.<ul>
+<li>For example, if messages are always forwarded on <code>channel 1</code>, they will cycle clockwise around the ring.</li>
 </ul>
 </li>
+</ul>
+<blockquote>
+<p>Why study rings?</p>
+<ul>
+<li>simple starting point, easy to analyze</li>
+<li>abstraction of a token ring</li>
+<li>lower bounds and impossibility results for ring topology also apply to arbitrary topoligies.</li>
 </ul>
 </blockquote>
+<h2 id="The-Leader-Election-LE-Problem"><a href="#The-Leader-Election-LE-Problem" class="headerlink" title="The Leader Election (LE) Problem"></a>The Leader Election (LE) Problem</h2><ul>
+<li>LE problem is for each processor to decide that either it is <strong>the leader or non-leader</strong>, subject to the constraint that exactly one processor decides to be the leader.</li>
+<li>LE problem represents a general class of <strong>symmetry-breaking</strong> problems.<ul>
+<li>For example, when a <code>deadlock</code> is created, because of processors waiting in a cycle for each other, the deadlock can be broken by electing one of the processor as a leader and removing it from the cycle. </li>
+</ul>
 </li>
-<li><p>赛后聚餐地点：上海财大豪生酒店</p>
+<li>Each processor has a set of <code>elected (won)</code> and <code>not-elected (lost)</code> states.</li>
+<li>Once an elected state is entered, processor is always in an elected state (and similarly for not-elected): i.e., irreversible decision.</li>
+<li>In every admissible execution:<ul>
+<li>every processor eventually enters an elected or a not-elected state</li>
+<li>exectly one processor (the <code>leader</code>) enters an elected state.</li>
+</ul>
 </li>
 </ul>
-<h4 id="赛前宣传海报-感谢-陈雨致-学姐的精心设计-："><a href="#赛前宣传海报-感谢-陈雨致-学姐的精心设计-：" class="headerlink" title="赛前宣传海报(感谢@陈雨致 学姐的精心设计)："></a>赛前宣传海报(感谢@陈雨致 学姐的精心设计)：</h4><p><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/比赛海报.jpeg" alt="比赛海报"><br><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/各队队长.jpeg" alt=""></p>
-<h4 id="赛前集体合影-每队一列，列首为该队队长"><a href="#赛前集体合影-每队一列，列首为该队队长" class="headerlink" title="赛前集体合影(每队一列，列首为该队队长):"></a>赛前集体合影(每队一列，列首为该队队长):</h4><p><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/赛前全体合影.JPG" alt=""><br><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/大合影.jpeg" alt=""></p>
-<h4 id="高质量的比赛场馆-感谢-王绍立学长大力帮助联系和提供场地！"><a href="#高质量的比赛场馆-感谢-王绍立学长大力帮助联系和提供场地！" class="headerlink" title="高质量的比赛场馆(感谢@王绍立学长大力帮助联系和提供场地！):"></a>高质量的比赛场馆(感谢@王绍立学长大力帮助联系和提供场地！):</h4><p><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/比赛场地.jpeg" alt=""></p>
-<h4 id="比赛中："><a href="#比赛中：" class="headerlink" title="比赛中："></a>比赛中：</h4><p><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/比赛中.jpeg" alt=""><br><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/小宇宙组合.jpeg" alt=""></p>
-<h4 id="赛果"><a href="#赛果" class="headerlink" title="赛果:"></a>赛果:</h4><ul>
-<li>冠军：闵松队(根据约定，本次比赛冠军将负责主办明年的第三届比赛^_-)</li>
-<li>亚军：沿江队</li>
-<li>季军：张江队</li>
-<li>殿军：<font color="red">杨浦队</font></li>
+<h3 id="Uses-of-LE"><a href="#Uses-of-LE" class="headerlink" title="Uses of LE"></a>Uses of LE</h3><ul>
+<li>A leader can be used to coordinate activities of the system:<ul>
+<li>find a <code>spanning tree</code> using the leader as the root;</li>
+<li>reconstruct a <code>lost token</code> in a token-ring network.</li>
 </ul>
-<p><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/赛果.jpeg" alt=""></p>
-<h4 id="赛后各队队长、裁判、志愿者们合影"><a href="#赛后各队队长、裁判、志愿者们合影" class="headerlink" title="赛后各队队长、裁判、志愿者们合影:"></a>赛后各队队长、裁判、志愿者们合影:</h4><p><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/志愿者.jpeg" alt=""></p>
-<h4 id="大杨浦队赛后合影留念"><a href="#大杨浦队赛后合影留念" class="headerlink" title="大杨浦队赛后合影留念"></a>大杨浦队赛后合影留念</h4><p><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/yangpu1.jpeg" alt=""><br><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/yangpu2.jpeg" alt=""></p>
-<h4 id="赛后聚餐"><a href="#赛后聚餐" class="headerlink" title="赛后聚餐:"></a>赛后聚餐:</h4><p><img src="/2017/01/07/闲情-记第二届南大上海校友会新年羽毛球嘉年华/赛后聚餐.jpeg" alt=""></p>
-<h4 id="广告时间"><a href="#广告时间" class="headerlink" title="广告时间"></a>广告时间</h4><p>感谢<font color="red">炜觉资本</font>对本次活动的大力赞助！</p>
-<hr>
-<p>明年再来，<font color="red">闵松</font>主办！</p>
+</li>
+</ul>
+<h2 id="Uniform-Anonymous-Algorithms"><a href="#Uniform-Anonymous-Algorithms" class="headerlink" title="Uniform (Anonymous) Algorithms"></a>Uniform (Anonymous) Algorithms</h2><ul>
+<li><code>Anonymous or not</code>: A leader election algorithm is anonymous if processors do not have unique identifiers that can be used by the algorithm<ul>
+<li>Message recipients can only be specified in terms of channel labels, e.g., left and right neighbors </li>
+<li>==&gt; Every processor in the system has the same state machine.</li>
+</ul>
+</li>
+<li>A <code>uniform</code> algorithm does not use the ring size (same algorithm for each size ring)<ul>
+<li>Formally, every processor in every size ring is modeled with the same state machine</li>
+<li>Uniform: since the algorithm looks the same for every value of n.</li>
+</ul>
+</li>
+<li>A <code>non-uniform</code> algorithm uses the ring size (different algorithm for each size ring)<ul>
+<li>Formally, for each value of n, every processor in a ring of size n is modeled with the same state machine An .</li>
+</ul>
+</li>
+</ul>
+<h2 id="Leader-Election-in-Anonymous-Rings"><a href="#Leader-Election-in-Anonymous-Rings" class="headerlink" title="Leader Election in Anonymous Rings"></a>Leader Election in Anonymous Rings</h2><p><code>Theorem:</code> <strong>For nonuniform algorithms and synchronous rings, there are no anonymous LE algorithms</strong>.</p>
+<p>Proof Sketch:</p>
+<ul>
+<li>Every processor begins in same state with same outgoing msgs (since anonymous)</li>
+<li>Every processor receives same msgs, does same state transition, and sends same msgs in round 1</li>
+<li>Ditto for rounds 2,3,…</li>
+<li>Eventually some processor is supposed to enter an elected state.  But then they all would.</li>
+</ul>
+<p>Proof sketch shows that either <strong>safety</strong> (never elect more than one leader) or <strong>liveness</strong> (eventually elect at least one leader) is violated. Since the theorem was proved for non-uniform and synchronous rings, the same result holds for weaker (less well-behaved) models (uniform / asynchronous).</p>
+<p><img src="http://static.zybuluo.com/sqfan/rveobgknzovji6jdsubae73v/image_1bug0fadc1e523b21fn7uqu1qn830.png" alt="image_1bug0fadc1e523b21fn7uqu1qn830.png-95.2kB"></p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Lattice_(order" target="_blank" rel="external">Lattice</a>) (格）<br>A lattice is an abstract structure studied in the mathematical subdisciplines of order theory and abstract algebra. It consists of a partially ordered set in which every two elements have a unique supremum (上确界) (also called a least upper bound or <strong>join</strong>, a ∧ b) and a unique infimum （下确界）(also called a greatest lower bound or <strong>meet</strong>, a V b)</p>
+</blockquote>
+<p>Based on the impossibility result, we can reasonably assume that: <code>Rings with unique processor identifiers</code>.</p>
+<h2 id="LE-in-Asynchronous-Rings"><a href="#LE-in-Asynchronous-Rings" class="headerlink" title="LE in Asynchronous Rings"></a>LE in Asynchronous Rings</h2><p>There exists algorithms when nodes have unique ids. We will evaluate them according to their <em>message complexity</em>.</p>
+<h3 id="Brute-Force-LE"><a href="#Brute-Force-LE" class="headerlink" title="Brute Force LE"></a>Brute Force LE</h3><p><img src="http://static.zybuluo.com/sqfan/a2iw6dqxfppfi3o06tm3cftr/image_1bug5niima1fh3so2m1uua1jdp3d.png" alt="image_1bug5niima1fh3so2m1uua1jdp3d.png-16.1kB"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Send value of own id to the left.</div><div class="line"></div><div class="line">When receive an id j (from the right)</div><div class="line">    if j &gt; id then</div><div class="line">        forward j to the left // this processor has lost</div><div class="line">    if j == id then</div><div class="line">        elect self // this processor has won</div><div class="line">    if j &lt; id then</div><div class="line">        // do nothing (swallow)</div></pre></td></tr></table></figure></p>
+<h4 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h4><ul>
+<li><strong>Correctness</strong>: Elect processor with the largest id. (Time: O(n))</li>
+<li><strong>Message complexity</strong>: Depends on how the ids are arranged.<ul>
+<li>largest id travels all around the ring (n msgs)</li>
+<li>2nd largest id travels until reaching largest</li>
+<li>3rd largest id travels until reaching largest or second largest.</li>
+<li>etc.</li>
+<li>Worst way to arrange the ids is in decreasing order (Fig.3.2)</li>
+</ul>
+</li>
+</ul>
+<p>The O(n^2) algorithm is simple and works in both sync and async model. But how to optimize?</p>
+<blockquote>
+<p><strong>Idea</strong>: try to have message containing smaller ids travel smaller distance in the ring.</p>
+</blockquote>
+<h3 id="k-neighbour-Forwarding"><a href="#k-neighbour-Forwarding" class="headerlink" title="k-neighbour Forwarding"></a>k-neighbour Forwarding</h3><ul>
+<li>Basic idea<ul>
+<li>Gradually increase the scope of sending</li>
+<li>Eliminate unnecessary senders accordingly</li>
+<li>Smaller IDs are swallowed</li>
+</ul>
+</li>
+<li>Clever forwarding<ul>
+<li>k-neighbourhood<ul>
+<li>2k+1 nodes: k left + k right + self</li>
+</ul>
+</li>
+<li>in the kth phase, LE among the 2^k-neighborhood<ul>
+<li>size of neighbourhood <strong>doubles</strong> in each phase</li>
+<li>only the winner survives to the next phase</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://static.zybuluo.com/sqfan/faxuqz0jm6fxsyxjj6w9qd1m/image_1bug88k2j1tj7109p19ll12e096b4a.png" alt="image_1bug88k2j1tj7109p19ll12e096b4a.png-197kB"></p>
+<h4 id="Analysis-1"><a href="#Analysis-1" class="headerlink" title="Analysis"></a>Analysis</h4><ul>
+<li>Correctness: similar to O(n*2) algorithm</li>
+<li><strong>Message complexity</strong><ul>
+<li>Each msg belongs to a particular phase and is initiated by a particular proc.</li>
+<li>Probe distance in phase k is 2^k</li>
+<li>Number of msgs initiated by a proc. in phase k is at most <strong>4</strong> * 2^k (probes and replies in both directions)</li>
+<li>How many proc. initiate probes in phase <em>k</em> ?<ul>
+<li>For k = 0, every proc. does</li>
+<li>For k &gt; 0, every proc. that is a “winner” in previous phase (phase <strong>k-1</strong>) does</li>
+</ul>
+</li>
+<li>Maximum number of phase <strong>k-1</strong> winners occurs when the are packed as densely as possible:<br><img src="http://static.zybuluo.com/sqfan/vl3eiohzz0fj2zt1y8g2y8yc/image_1bugc8ue119cphe614og1qjv1qrk4n.png" alt="image_1bugc8ue119cphe614og1qjv1qrk4n.png-12.5kB"></li>
+<li>Total number of phase k-1 winners is at most <strong>n/(2^(k-1) + 1)</strong></li>
+<li>How many phases are there?<ul>
+<li>let <strong>n/2^(k-1) + 1 == 1</strong> (at the last phase there exists only one winner) ==&gt; <strong>k = log(n-1) + 1</strong> = number of phases</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>So the total number of msgs is sum, over all phases, of number of winners at that phase <em>times</em> number of msgs originated by that winner:<br><img src="http://static.zybuluo.com/sqfan/fxnyl4pjmr8co6i8hh5onfz0/image_1bugd4jjg1kvm1ff117bbo541k1l54.png" alt="image_1bugd4jjg1kvm1ff117bbo541k1l54.png-25.7kB"></p>
+<p>The O(log n) algorithm is more complicated than the O(n^2) algorithm but uses fewer messages in worst case.</p>
+<h2 id="Lower-bound-for-LE-Algorithm"><a href="#Lower-bound-for-LE-Algorithm" class="headerlink" title="Lower bound for LE Algorithm"></a>Lower bound for LE Algorithm</h2><p>Can we do better than O(nlogn) ?</p>
+<p><code>Theorem</code>: Any leader election algorithm for <strong>asynchronous</strong> rings whose size is not known a priori has Ω(nlog n) msg complexity (holds also for undirectional rings).</p>
+<ul>
+<li>The two algorithms above are <strong>comparison-based</strong> algorithms, i.e. they use the identifiers only for comparison (&lt;, &gt;, =)</li>
+<li>In synchronous networks, O(n) msg complexity can be achieved if general arithmatic operations are permitted (<strong>non-comparison based</strong>) and if time complexity is unbounded.</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] <a href="http://hagit.net.technion.ac.il/publications/dc/" target="_blank" rel="external">Attiya, Hagit, and Jennifer Welch. <strong>Distributed computing</strong>: fundamentals, simulations, and advanced topics. Vol. 19. John Wiley &amp; Sons, 2004.</a><br>[2] <a href="http://www.bigoh.net/wiki/index.php/Dis-alg" target="_blank" rel="external">分布式算法（黄宇）课程主页</a><br>[3] <a href="https://www.youtube.com/watch?v=LRUcPNet6i4" target="_blank" rel="external">Distributed System</a></p>
 
       
     </div>
@@ -517,11 +608,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/闲情/" rel="tag"># 闲情</a>
-          
-            <a href="/tags/羽毛球/" rel="tag"># 羽毛球</a>
-          
-            <a href="/tags/相册/" rel="tag"># 相册</a>
+            <a href="/tags/分布式算法/" rel="tag"># 分布式算法</a>
           
         </div>
       
@@ -534,8 +621,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/12/CaffeNet-vs-CaffeOnSpark/" rel="next" title="CaffeNet vs CaffeOnSpark">
-                <i class="fa fa-chevron-left"></i> CaffeNet vs CaffeOnSpark
+              <a href="/2017/10/05/L02-Basic-Message-Passing-Algorithms/" rel="next" title="L02-Basic Message Passing Algorithms">
+                <i class="fa fa-chevron-left"></i> L02-Basic Message Passing Algorithms
               </a>
             
           </div>
@@ -543,10 +630,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/15/算法基础/" rel="prev" title="算法基础">
-                算法基础 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -760,7 +843,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赛前宣传海报-感谢-陈雨致-学姐的精心设计-："><span class="nav-number">2.</span> <span class="nav-text">赛前宣传海报(感谢@陈雨致 学姐的精心设计)：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赛前集体合影-每队一列，列首为该队队长"><span class="nav-number">3.</span> <span class="nav-text">赛前集体合影(每队一列，列首为该队队长):</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高质量的比赛场馆-感谢-王绍立学长大力帮助联系和提供场地！"><span class="nav-number">4.</span> <span class="nav-text">高质量的比赛场馆(感谢@王绍立学长大力帮助联系和提供场地！):</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比赛中："><span class="nav-number">5.</span> <span class="nav-text">比赛中：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赛果"><span class="nav-number">6.</span> <span class="nav-text">赛果:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赛后各队队长、裁判、志愿者们合影"><span class="nav-number">7.</span> <span class="nav-text">赛后各队队长、裁判、志愿者们合影:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大杨浦队赛后合影留念"><span class="nav-number">8.</span> <span class="nav-text">大杨浦队赛后合影留念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赛后聚餐"><span class="nav-number">9.</span> <span class="nav-text">赛后聚餐:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#广告时间"><span class="nav-number">10.</span> <span class="nav-text">广告时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ring-Networks"><span class="nav-number">2.</span> <span class="nav-text">Ring Networks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Leader-Election-LE-Problem"><span class="nav-number">3.</span> <span class="nav-text">The Leader Election (LE) Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Uses-of-LE"><span class="nav-number">3.1.</span> <span class="nav-text">Uses of LE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uniform-Anonymous-Algorithms"><span class="nav-number">4.</span> <span class="nav-text">Uniform (Anonymous) Algorithms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leader-Election-in-Anonymous-Rings"><span class="nav-number">5.</span> <span class="nav-text">Leader Election in Anonymous Rings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LE-in-Asynchronous-Rings"><span class="nav-number">6.</span> <span class="nav-text">LE in Asynchronous Rings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Brute-Force-LE"><span class="nav-number">6.1.</span> <span class="nav-text">Brute Force LE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis"><span class="nav-number">6.1.1.</span> <span class="nav-text">Analysis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k-neighbour-Forwarding"><span class="nav-number">6.2.</span> <span class="nav-text">k-neighbour Forwarding</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">Analysis</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lower-bound-for-LE-Algorithm"><span class="nav-number">7.</span> <span class="nav-text">Lower bound for LE Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">8.</span> <span class="nav-text">References</span></a></li></ol></div>
             
 
           </div>
