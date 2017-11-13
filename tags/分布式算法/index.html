@@ -314,6 +314,34 @@
 
       <h2 class="post-title">
         
+            <a class="post-title-link" href="/2017/10/19/L04-Mutual-Exclusion/" itemprop="url">
+              
+                <span itemprop="name">L04-Mutual Exclusion</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-10-19T14:35:55+08:00"
+              content="2017-10-19" >
+          10-19
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
             <a class="post-title-link" href="/2017/10/12/L03-Leader-Election-in-Rings/" itemprop="url">
               
                 <span itemprop="name">L03-Leader Election in Rings</span>
@@ -436,7 +464,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -579,6 +607,10 @@
   </a>
 </div>
 
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共5.0k字</span>
+</div>
 
         
 <div class="busuanzi-count">
@@ -708,10 +740,6 @@
 
 
 
-  
-    
-
-    
   
 
 
@@ -1084,6 +1112,46 @@
 
 
   
+
+
+  
+  <div id="hexo-helper-live2d">
+      <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+  </div>
+    <style>
+      #live2dcanvas{
+      	-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+        position: fixed;
+        width: 150px;
+        height: 300px;
+        opacity:1;
+        
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: -20px;
+      }
+	  
+    </style>
+    <script src="/live2d/device.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+    if(device.mobile()){
+      document.getElementById("live2dcanvas").style.width = '75px';
+      document.getElementById("live2dcanvas").style.height = '150px';
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5)<\/script>');
+    }else{
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5)<\/script>');
+    }
+    })();
+    </script>
 
 </body>
 </html>

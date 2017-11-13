@@ -95,23 +95,23 @@
 
 
 
-<meta name="description" content="[Based on the book “Distributed Computing“ by Hagit attiya &amp;amp; Jennifer Welch] Preface Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of pr">
+<meta name="description" content="Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of processors must choose one among them to be a leader. Present the different algorithms for">
 <meta name="keywords" content="分布式算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="L03-Leader Election in Rings">
 <meta property="og:url" content="http://fanshiqing.github.io/2017/10/12/L03-Leader-Election-in-Rings/index.html">
 <meta property="og:site_name" content="Shiqing Fan&#39;s Blog">
-<meta property="og:description" content="[Based on the book “Distributed Computing“ by Hagit attiya &amp;amp; Jennifer Welch] Preface Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of pr">
+<meta property="og:description" content="Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of processors must choose one among them to be a leader. Present the different algorithms for">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/qtrrif1ta6opgr54rx5071ij/image_1bue05vdhcjd1eb9rnt4do2spm.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/rveobgknzovji6jdsubae73v/image_1bug0fadc1e523b21fn7uqu1qn830.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/a2iw6dqxfppfi3o06tm3cftr/image_1bug5niima1fh3so2m1uua1jdp3d.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/faxuqz0jm6fxsyxjj6w9qd1m/image_1bug88k2j1tj7109p19ll12e096b4a.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/vl3eiohzz0fj2zt1y8g2y8yc/image_1bugc8ue119cphe614og1qjv1qrk4n.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/fxnyl4pjmr8co6i8hh5onfz0/image_1bugd4jjg1kvm1ff117bbo541k1l54.png">
-<meta property="og:updated_time" content="2017-11-09T13:21:01.000Z">
+<meta property="og:updated_time" content="2017-11-13T06:39:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="L03-Leader Election in Rings">
-<meta name="twitter:description" content="[Based on the book “Distributed Computing“ by Hagit attiya &amp;amp; Jennifer Welch] Preface Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of pr">
+<meta name="twitter:description" content="Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of processors must choose one among them to be a leader. Present the different algorithms for">
 <meta name="twitter:image" content="http://static.zybuluo.com/sqfan/qtrrif1ta6opgr54rx5071ij/image_1bue05vdhcjd1eb9rnt4do2spm.png">
 
 
@@ -407,6 +407,37 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,148
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
 
           
 
@@ -420,11 +451,12 @@
       
 
       
-        <p>[Based on the book “<strong>Distributed Computing</strong>“ by Hagit attiya &amp; Jennifer Welch]</p>
-<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><ul>
+        <ul>
 <li>Discuss the leader election (LE) problem in message-passing systems for a ring topology, in which a group of processors must choose one among them to be a leader.</li>
 <li>Present the different algorithms for leader election problem by taking the cases like anonymous/non-anonymous rings, uniform/non-uniform rings and synchronous/asynchronous rings etc.</li>
 </ul>
+<a id="more"></a>
+<p>[Based on the book “<strong>Distributed Computing</strong>“ by Hagit attiya &amp; Jennifer Welch]</p>
 <h2 id="Ring-Networks"><a href="#Ring-Networks" class="headerlink" title="Ring Networks"></a>Ring Networks</h2><p><img src="http://static.zybuluo.com/sqfan/qtrrif1ta6opgr54rx5071ij/image_1bue05vdhcjd1eb9rnt4do2spm.png" alt="image_1bue05vdhcjd1eb9rnt4do2spm.png-15.7kB"></p>
 <ul>
 <li>In an <code>oriented ring</code>, processors have a consistent notion of left and right.<ul>
@@ -608,7 +640,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分布式算法/" rel="tag"># 分布式算法</a>
+            <a href="/tags/分布式算法/" rel="tag"><i class="fa fa-tag"></i> 分布式算法</a>
           
         </div>
       
@@ -630,6 +662,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/19/L04-Mutual-Exclusion/" rel="prev" title="L04-Mutual Exclusion">
+                L04-Mutual Exclusion <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -678,7 +714,7 @@
           
   <div class="comments" id="comments">
     
-      <div id="uyan_frame"></div>
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTgyMS84Mzg1"></div>
     
   </div>
 
@@ -726,7 +762,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -843,7 +879,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ring-Networks"><span class="nav-number">2.</span> <span class="nav-text">Ring Networks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Leader-Election-LE-Problem"><span class="nav-number">3.</span> <span class="nav-text">The Leader Election (LE) Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Uses-of-LE"><span class="nav-number">3.1.</span> <span class="nav-text">Uses of LE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uniform-Anonymous-Algorithms"><span class="nav-number">4.</span> <span class="nav-text">Uniform (Anonymous) Algorithms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leader-Election-in-Anonymous-Rings"><span class="nav-number">5.</span> <span class="nav-text">Leader Election in Anonymous Rings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LE-in-Asynchronous-Rings"><span class="nav-number">6.</span> <span class="nav-text">LE in Asynchronous Rings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Brute-Force-LE"><span class="nav-number">6.1.</span> <span class="nav-text">Brute Force LE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis"><span class="nav-number">6.1.1.</span> <span class="nav-text">Analysis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k-neighbour-Forwarding"><span class="nav-number">6.2.</span> <span class="nav-text">k-neighbour Forwarding</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">Analysis</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lower-bound-for-LE-Algorithm"><span class="nav-number">7.</span> <span class="nav-text">Lower bound for LE Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">8.</span> <span class="nav-text">References</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ring-Networks"><span class="nav-number">1.</span> <span class="nav-text">Ring Networks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Leader-Election-LE-Problem"><span class="nav-number">2.</span> <span class="nav-text">The Leader Election (LE) Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Uses-of-LE"><span class="nav-number">2.1.</span> <span class="nav-text">Uses of LE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uniform-Anonymous-Algorithms"><span class="nav-number">3.</span> <span class="nav-text">Uniform (Anonymous) Algorithms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leader-Election-in-Anonymous-Rings"><span class="nav-number">4.</span> <span class="nav-text">Leader Election in Anonymous Rings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LE-in-Asynchronous-Rings"><span class="nav-number">5.</span> <span class="nav-text">LE in Asynchronous Rings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Brute-Force-LE"><span class="nav-number">5.1.</span> <span class="nav-text">Brute Force LE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis"><span class="nav-number">5.1.1.</span> <span class="nav-text">Analysis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k-neighbour-Forwarding"><span class="nav-number">5.2.</span> <span class="nav-text">k-neighbour Forwarding</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-1"><span class="nav-number">5.2.1.</span> <span class="nav-text">Analysis</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lower-bound-for-LE-Algorithm"><span class="nav-number">6.</span> <span class="nav-text">Lower bound for LE Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">7.</span> <span class="nav-text">References</span></a></li></ol></div>
             
 
           </div>
@@ -885,6 +921,10 @@
   </a>
 </div>
 
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共5.0k字</span>
+</div>
 
         
 <div class="busuanzi-count">
@@ -1015,19 +1055,22 @@
 
 
   
-    
 
-    
-      <!-- UY BEGIN -->
-      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2136731"></script>
-      <!-- UY END -->
-    
+
+
+
+
   
-
-
-
-
-
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
@@ -1374,6 +1417,46 @@
 
 
   
+
+
+  
+  <div id="hexo-helper-live2d">
+      <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+  </div>
+    <style>
+      #live2dcanvas{
+      	-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+        position: fixed;
+        width: 150px;
+        height: 300px;
+        opacity:1;
+        
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: -20px;
+      }
+	  
+    </style>
+    <script src="/live2d/device.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+    if(device.mobile()){
+      document.getElementById("live2dcanvas").style.width = '75px';
+      document.getElementById("live2dcanvas").style.height = '150px';
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5)<\/script>');
+    }else{
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5)<\/script>');
+    }
+    })();
+    </script>
 
 </body>
 </html>

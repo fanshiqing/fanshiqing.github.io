@@ -95,22 +95,22 @@
 
 
 
-<meta name="description" content="[TOC] Broadcast over a rooted spanning tree Broadcast is used to send the information to all. Suppose processors already have information about a rooted spanning tree of the communication topology tre">
+<meta name="description" content="Broadcast / convergecast on a spanning tree Async / sync flooding to construct a spanning tree distributed DFS with/without a specific root">
 <meta name="keywords" content="分布式算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="L02-Basic Message Passing Algorithms">
 <meta property="og:url" content="http://fanshiqing.github.io/2017/10/05/L02-Basic-Message-Passing-Algorithms/index.html">
 <meta property="og:site_name" content="Shiqing Fan&#39;s Blog">
-<meta property="og:description" content="[TOC] Broadcast over a rooted spanning tree Broadcast is used to send the information to all. Suppose processors already have information about a rooted spanning tree of the communication topology tre">
+<meta property="og:description" content="Broadcast / convergecast on a spanning tree Async / sync flooding to construct a spanning tree distributed DFS with/without a specific root">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/digj1gg45grlsp7yqlbxy387/image_1bu5gq7v33lgv161mc1lef1g9t9.png">
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Flooding_routing.gif/220px-Flooding_routing.gif">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/xdwf7bfg97pumdx3j45v8trt/image_1bu5ifmh212aq1a9oauomuchdn16.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/6j4qhtilocj6kqjq3cusu57p/image_1bu5jha1n20n14gm0p1u3c198i20.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/sb92i2ocjs27079je9k9axtg/image_1bu5k3agccbb1no917v3iak19gk2d.png">
-<meta property="og:updated_time" content="2017-11-07T05:52:40.000Z">
+<meta property="og:updated_time" content="2017-11-13T06:42:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="L02-Basic Message Passing Algorithms">
-<meta name="twitter:description" content="[TOC] Broadcast over a rooted spanning tree Broadcast is used to send the information to all. Suppose processors already have information about a rooted spanning tree of the communication topology tre">
+<meta name="twitter:description" content="Broadcast / convergecast on a spanning tree Async / sync flooding to construct a spanning tree distributed DFS with/without a specific root">
 <meta name="twitter:image" content="http://static.zybuluo.com/sqfan/digj1gg45grlsp7yqlbxy387/image_1bu5gq7v33lgv161mc1lef1g9t9.png">
 
 
@@ -406,6 +406,37 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  541
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
 
           
 
@@ -419,7 +450,12 @@
       
 
       
-        <p>[TOC]</p>
+        <ul>
+<li>Broadcast / convergecast on a spanning tree</li>
+<li>Async / sync flooding to construct a spanning tree</li>
+<li>distributed DFS with/without a specific root</li>
+</ul>
+<a id="more"></a>
 <h2 id="Broadcast-over-a-rooted-spanning-tree"><a href="#Broadcast-over-a-rooted-spanning-tree" class="headerlink" title="Broadcast over a rooted spanning tree"></a>Broadcast over a rooted spanning tree</h2><ul>
 <li>Broadcast is used to send the information to all.</li>
 <li>Suppose processors <strong>already have information about a rooted spanning tree of the communication topology</strong><ul>
@@ -556,7 +592,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分布式算法/" rel="tag"># 分布式算法</a>
+            <a href="/tags/分布式算法/" rel="tag"><i class="fa fa-tag"></i> 分布式算法</a>
           
         </div>
       
@@ -630,7 +666,7 @@
           
   <div class="comments" id="comments">
     
-      <div id="uyan_frame"></div>
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTgyMS84Mzg1"></div>
     
   </div>
 
@@ -678,7 +714,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -837,6 +873,10 @@
   </a>
 </div>
 
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共5.0k字</span>
+</div>
 
         
 <div class="busuanzi-count">
@@ -967,19 +1007,22 @@
 
 
   
-    
 
-    
-      <!-- UY BEGIN -->
-      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2136731"></script>
-      <!-- UY END -->
-    
+
+
+
+
   
-
-
-
-
-
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
@@ -1326,6 +1369,46 @@
 
 
   
+
+
+  
+  <div id="hexo-helper-live2d">
+      <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+  </div>
+    <style>
+      #live2dcanvas{
+      	-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+        position: fixed;
+        width: 150px;
+        height: 300px;
+        opacity:1;
+        
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: -20px;
+      }
+	  
+    </style>
+    <script src="/live2d/device.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+    if(device.mobile()){
+      document.getElementById("live2dcanvas").style.width = '75px';
+      document.getElementById("live2dcanvas").style.height = '150px';
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5)<\/script>');
+    }else{
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5)<\/script>');
+    }
+    })();
+    </script>
 
 </body>
 </html>
