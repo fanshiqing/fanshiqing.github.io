@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,Linux性能分析," />
+  <meta name="keywords" content="分布式算法," />
 
 
 
@@ -95,22 +95,29 @@
 
 
 
-<meta name="description" content="htop命令简介htop是Linux系统下的一个交互式、实时进程监控应用程序，top的高级版。 优点：  可以横向或纵向滚动浏览进程列表，以便查看所有的进程和完整的命令行 支持鼠标操作 杀进程时不需要输入进程号(快捷键: F9)  htop vs top It is similar to top, but allows you to scroll vertically and horizon-">
-<meta name="keywords" content="Linux,Linux性能分析">
+<meta name="description" content="Preface The consensus problem Consensus with Byzantine Failures">
+<meta name="keywords" content="分布式算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="htop - interactive process viewer">
-<meta property="og:url" content="http://fanshiqing.github.io/2017/06/18/htop/index.html">
+<meta property="og:title" content="L05-Fault-tolerant consensus">
+<meta property="og:url" content="http://fanshiqing.github.io/2017/10/26/L05-Fault-tolerant-consensus/index.html">
 <meta property="og:site_name" content="Shiqing Fan&#39;s Blog">
-<meta property="og:description" content="htop命令简介htop是Linux系统下的一个交互式、实时进程监控应用程序，top的高级版。 优点：  可以横向或纵向滚动浏览进程列表，以便查看所有的进程和完整的命令行 支持鼠标操作 杀进程时不需要输入进程号(快捷键: F9)  htop vs top It is similar to top, but allows you to scroll vertically and horizon-">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/03/5959f95e6c77f.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/03/595a490e9ef34.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/03/595a45a4a111c.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/03/595a48b21eaa3.png">
-<meta property="og:updated_time" content="2017-07-04T08:00:01.000Z">
+<meta property="og:description" content="Preface The consensus problem Consensus with Byzantine Failures">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/a3w5713ss4n0p18hy8q194g4/image_1bvc1f0gs1721tm5m0h17fq170j9.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/y946xgli1f5gy525hehs9fft/image_1bves2gnp6fhd301i32eni1dos83.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/lgf5n4i2dja5bmzism90iizr/image_1bveikf7ge2e1bc612bv1vie1e51g.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/xn1sspjaamzg1dl37xu5z5mm/image_1bvelori51oup18o6ddh1978mjk1t.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/l5okgj5uwhlx4c9qcpuwb7jt/f-algorithm.gif">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/fggijnartoo9il036cnmmsee/image_1bven6g7d173d11ef12j8kvdiin34.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/joxki8ngdk011adx9codwgn7/image_1bveqt9ttg1pfv5qjv13h615cv7m.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/hw0m0wv2ji8j69uweawp48pm/image_1bvepphnj1olttd012914ka1m8662.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/6jwenw1oshgpwdg69okcj6qz/image_1bvepthlf1ipjgsuuea1qej14ko6f.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/imhi1feobwcw0fvkt1i1brbb/image_1bveqb3lk1gdip7m1mnu1a791j6a79.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/19nqclsounkyu7x122nfsvow/image_1bvesf5cr18v9imp1b2l19cbkp2aq.png">
+<meta property="og:updated_time" content="2017-11-21T09:14:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="htop - interactive process viewer">
-<meta name="twitter:description" content="htop命令简介htop是Linux系统下的一个交互式、实时进程监控应用程序，top的高级版。 优点：  可以横向或纵向滚动浏览进程列表，以便查看所有的进程和完整的命令行 支持鼠标操作 杀进程时不需要输入进程号(快捷键: F9)  htop vs top It is similar to top, but allows you to scroll vertically and horizon-">
-<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/07/03/5959f95e6c77f.png">
+<meta name="twitter:title" content="L05-Fault-tolerant consensus">
+<meta name="twitter:description" content="Preface The consensus problem Consensus with Byzantine Failures">
+<meta name="twitter:image" content="http://static.zybuluo.com/sqfan/a3w5713ss4n0p18hy8q194g4/image_1bvc1f0gs1721tm5m0h17fq170j9.png">
 
 
 
@@ -138,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="http://fanshiqing.github.io/2017/06/18/htop/"/>
+  <link rel="canonical" href="http://fanshiqing.github.io/2017/10/26/L05-Fault-tolerant-consensus/"/>
 
 
 
 
 
-  <title>htop - interactive process viewer | Shiqing Fan's Blog</title>
+  <title>L05-Fault-tolerant consensus | Shiqing Fan's Blog</title>
   
 
 
@@ -317,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://fanshiqing.github.io/2017/06/18/htop/">
+    <link itemprop="mainEntityOfPage" href="http://fanshiqing.github.io/2017/10/26/L05-Fault-tolerant-consensus/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shiqing Fan">
@@ -334,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">htop - interactive process viewer</h1>
+          <h1 class="post-title" itemprop="name headline">L05-Fault-tolerant consensus</h1>
         
 
         <div class="post-meta">
@@ -346,8 +353,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T14:42:01+08:00">
-                2017-06-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-26T16:31:03+08:00">
+                2017-10-26
               </time>
             
 
@@ -369,8 +376,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux性能分析工具/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux性能分析工具</span>
+                  <a href="/categories/Introduction-to-Distributed-Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Introduction to Distributed Algorithms</span>
                   </a>
                 </span>
 
@@ -387,8 +394,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/18/htop/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://fanshiqing.github.io/2017/06/18/htop/" itemprop="commentCount">0</span> comments
+                <a href="/2017/10/26/L05-Fault-tolerant-consensus/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://fanshiqing.github.io/2017/10/26/L05-Fault-tolerant-consensus/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -415,7 +422,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  920
+                  1,154
                 </span>
               
 
@@ -431,7 +438,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  4
+                  7
                 </span>
               
             </div>
@@ -449,68 +456,182 @@
       
 
       
-        <h1 id="htop命令简介"><a href="#htop命令简介" class="headerlink" title="htop命令简介"></a>htop命令简介</h1><p><code>htop</code>是Linux系统下的一个<strong>交互式</strong>、<strong>实时</strong>进程监控应用程序，<code>top</code>的高级版。</p>
-<p>优点：</p>
-<ul>
-<li>可以横向或纵向滚动浏览进程列表，以便查看所有的进程和<strong>完整的命令行</strong></li>
-<li>支持<strong>鼠标操作</strong></li>
-<li>杀进程时不需要输入进程号(快捷键: <code>F9</code>)</li>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><ul>
+<li>The consensus problem</li>
+<li>Consensus with Byzantine Failures</li>
 </ul>
-<h2 id="htop-vs-top"><a href="#htop-vs-top" class="headerlink" title="htop vs top"></a>htop vs top</h2><blockquote>
-<p>It is similar to top, but allows you to scroll vertically and horizon-<br>       tally, so you can see all the processes running on the  system,  along<br>       with  their  full  command lines, as well as viewing them as a process<br>       tree, selecting multiple processes and acting on them all at once.<br>Tasks related to processes (killing, renicing)  can  be  done  without<br>       entering their PIDs. (摘自<code>htop</code>手册:)</p>
-</blockquote>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>For Mac OS:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install htop</div></pre></td></tr></table></figure>
-<p>For Ubuntu 14.04 LTS:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install htop</div></pre></td></tr></table></figure>
-<p>查看命令手册：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ man htop</div></pre></td></tr></table></figure>
-<p>启动htop：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ htop</div></pre></td></tr></table></figure>
-<p>将得到如下类似的一个实时进程监控窗口：<br><img src="https://ooo.0o0.ooo/2017/07/03/5959f95e6c77f.png" alt="htop panel"></p>
-<p>帮助：按<code>F1</code>进入使用帮助。</p>
-<p>退出：按下<code>q</code>键退出htop面板。</p>
-<h1 id="监控面板介绍"><a href="#监控面板介绍" class="headerlink" title="监控面板介绍"></a>监控面板介绍</h1><h2 id="系统CPU使用率"><a href="#系统CPU使用率" class="headerlink" title="系统CPU使用率"></a>系统CPU使用率</h2><p><img src="https://ooo.0o0.ooo/2017/07/03/595a490e9ef34.png" alt="cpu-usage"></p>
-<p>图中上半部分中的数字<code>1</code>到<code>8</code>表示系统中CPU/Core的数量，而紧邻数字的右侧进度条则相应地表示了对应CPU/Core的实时负载。进度条中不同颜色具有不同的含义<font color="grey">(以下为默认配置，具体操作时可以在<code>F2-&gt;Setup-&gt;Colors</code>列表中选择不同的主题)</font>：</p>
-<ul>
-<li><strong>CPU使用率栏</strong>: [<font color="blue">低优先级进程/</font><font color="green">用户进程/</font><font color="red">内核进程</font> &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; <font color="grey">used%</font>]</li>
-</ul>
-<h2 id="系统内存使用率"><a href="#系统内存使用率" class="headerlink" title="系统内存使用率"></a>系统内存使用率</h2><ul>
-<li><strong>Memory使用率栏</strong>：[<font color="green">已使用/</font><font color="blue">buffers/</font><font color="orange">cache</font> &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; <font color="grey">used/total</font>]</li>
-</ul>
-<h2 id="系统平均负载"><a href="#系统平均负载" class="headerlink" title="系统平均负载"></a>系统平均负载</h2><p><img src="https://ooo.0o0.ooo/2017/07/03/595a45a4a111c.png" alt="load average"></p>
-<ul>
-<li><strong>负载</strong>(<a href="https://en.wikipedia.org/wiki/Load_(computing" target="_blank" rel="external">Load</a>)): 运行队列(run-queue)的长度：L = 等待进程的数目 + 运行进程的数目</li>
-<li><strong>平均负载</strong>(<a href="https://www.howtogeek.com/194642/understanding-the-load-average-on-linux-and-other-unix-like-systems/" target="_blank" rel="external">load average</a>) 在<strong>一段时间内</strong>CPU正在处理以及等待CPU处理的进程数之和的统计信息，也就是CPU使用队列的长度的统计信息<blockquote>
-<p><code>“最大负载=核心数”法则</code> 在多核处理中，负载不应该高于<strong>处理器核心的总数量</strong>。<font color="grey"><a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages" target="_blank" rel="external">source</a></font></p>
-</blockquote>
-</li>
-</ul>
-<p>上图中<code>Load average</code>之后的3个数字显示的是系统在<code>1分钟</code>，<code>5分钟</code>，<code>15分钟</code>之内的平均负载值。(注： <code>uptime</code>命令可以直接查看load average)</p>
-<h2 id="进程详细实时信息列表"><a href="#进程详细实时信息列表" class="headerlink" title="进程详细实时信息列表"></a>进程详细实时信息列表</h2><p><img src="https://ooo.0o0.ooo/2017/07/03/595a48b21eaa3.png" alt="processes-info"></p>
-<p>每一列依次表示：</p>
-<ul>
-<li><strong>PID</strong> 进程ID</li>
-<li><strong>USER</strong> 进程的所有者</li>
-<li><strong>PRI</strong> 进程优先级。数字越小，优先级越高。</li>
-<li><strong>NI</strong> 进程的<code>nice</code>值（负值表示高优先级，正值表示低优先级）</li>
-<li><strong>VIRT</strong> 进程使用的虚拟内存</li>
-<li><strong>RES</strong> 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA</li>
-<li><strong>S</strong> 进程状态<ul>
-<li><font color="green">R</font> (Running) &ensp; &ensp; 可执行状态（<font color="red">运行/就绪</font>)</li>
-<li>D (uninterruptedly sleeping) &ensp; &ensp; <font color="red">不可中断的睡眠状态</font>.通常是在等待IO，比如磁盘IO，网络IO，其他外设IO (该状态不接收外来的任何信号，因此无法用kill杀掉D状态的进程)</li>
-<li>S (sleeping) &ensp; &ensp; <font color="red">可中断的睡眠状态</font>(因为等待某某事件的发生(比如等待socket连接、等待信号量),而被挂起)</li>
-<li>T (traced) &ensp; &ensp; 暂停状态或跟踪状态 (例如在<code>gdb</code>中对被跟踪的进程下一个断点，进程在断点处停下来的时候就处于task_traced状态)</li>
-<li>Z (zombied) &ensp; &ensp; 退出状态，进程成为僵尸进程(已经结束了的进程，但是没有从进程表中删除)</li>
+<a id="more"></a>
+<h2 id="Processor-Failures-in-Message-Passing"><a href="#Processor-Failures-in-Message-Passing" class="headerlink" title="Processor Failures in Message Passing"></a>Processor Failures in Message Passing</h2><ul>
+<li><code>Fail stop</code>: at some point the processor stops taking steps<ul>
+<li>at the processor’s final step, it might succeed in sending only <strong>a subset of the messages</strong> it is supposed to send, e.g.: <ul>
+<li><code>Crash</code></li>
+<li>Power outage</li>
+<li>Hardware failure</li>
+<li>Out of memory/disk full</li>
 </ul>
 </li>
-<li><font color="red"><strong>CPU%</strong></font> 进程的CPU时间片利用率</li>
-<li><font color="red"><strong>MEM%</strong></font> 进程的物理内存利用率</li>
-<li><strong>TIME+</strong> 进程使用的处理器时间总计</li>
-<li><font color="red"><strong>Command</strong></font> 启动该进程的完整命令行</li>
+<li>Strategies:<ul>
+<li>Checkpoint state and restart (<strong>High latency</strong>)</li>
+<li>Replicate state and fail over (失效备援) (<strong>High cost</strong>)</li>
 </ul>
-<p>最后一行是F1~F10的功能菜单和对应的字母快捷键。</p>
-<h1 id="Read-More"><a href="#Read-More" class="headerlink" title="Read More"></a>Read More</h1><p><a href="https://www.howtogeek.com/194642/understanding-the-load-average-on-linux-and-other-unix-like-systems/" target="_blank" rel="external">Understanding the Load Average on Linux and Other Unix-like Systems</a><br><a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages" target="_blank" rel="external">Understanding Linux CPU Load - when should you be worried?</a><br><a href="http://www.deonsworld.co.za/2012/12/20/understanding-and-using-htop-monitor-system-resources/" target="_blank" rel="external">Understanding and using htop to monitor system resources</a><br><a href="http://www.brendangregg.com/Slides/Velocity2015_LinuxPerfTools.pdf" target="_blank" rel="external">Linux    Performance Tools</a></p>
+</li>
+</ul>
+</li>
+<li><code>Byzantine</code>: <strong>Everything that is not fail stop</strong>. Processor changes state arbitrarily and sends message with arbitrary content. <ul>
+<li>E.g.:<ul>
+<li>Bit flip in memory or on disk corrupts data</li>
+<li>Older version of code on one node sends (now) invalid messages</li>
+<li>Node starts running malicious version of software</li>
+</ul>
+</li>
+<li>Goal: turn into fail stop<ul>
+<li>Checksums/ECC (Error Correction Code)</li>
+<li>Assertions</li>
+<li>Timeouts</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Failure-Matrix"><a href="#Failure-Matrix" class="headerlink" title="Failure Matrix"></a>Failure Matrix</h3><p><img src="http://static.zybuluo.com/sqfan/a3w5713ss4n0p18hy8q194g4/image_1bvc1f0gs1721tm5m0h17fq170j9.png" alt="image_1bvc1f0gs1721tm5m0h17fq170j9.png-44.5kB"></p>
+<h3 id="Negative-result-for-link-failures"><a href="#Negative-result-for-link-failures" class="headerlink" title="Negative result for link failures"></a>Negative result for <strong>link failures</strong></h3><p>It is impossible to reach consensus in case of link failures, even in the synchronous case, and even if one only wants to tolerate a single link failure.</p>
+<p>Consensus under link failures: <code>the 2 generals problem</code>.</p>
+<ul>
+<li>There are two generals of the same army who have encamped a short distance apart.</li>
+<li>Their objective is to capture a hill, which is possible only if they attack simultaneously. </li>
+<li>If only one general attacks, he will be defeated. </li>
+<li>The two generals can only communicate by sending messengers, <strong>which is not reliable</strong>. </li>
+<li>Is it possible for them to attack simultaneously?</li>
+</ul>
+<p><img src="http://static.zybuluo.com/sqfan/y946xgli1f5gy525hehs9fft/image_1bves2gnp6fhd301i32eni1dos83.png" alt="image_1bves2gnp6fhd301i32eni1dos83.png-39.6kB"></p>
+<p>See <a href="https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf" target="_blank" rel="external">Fischer/Lynch/Paterson</a> for more discussion.</p>
+<h2 id="The-Consensus-Problem"><a href="#The-Consensus-Problem" class="headerlink" title="The Consensus Problem"></a>The Consensus Problem</h2><p>Each process starts with an individual <code>input</code> from a particular value set V. Processes may fail by crashing. All non-faulty processes are required to produce outputs from the value set V, subject to simple agreement and validity. A solution to the <strong>consensus proble</strong>m must guarantee the following:</p>
+<ul>
+<li><code>Termination</code>: Eventually every <strong>nonfaulty processor</strong> must decide on a value (decision is irrevocable).</li>
+<li><code>Agreement</code>: All decisions by nonfaulty processors must be the same.</li>
+<li><code>Validity</code>: If all inputs are the same, then the decision of a nonfaulty processor must equal the common input</li>
+</ul>
+<p>Once a processor crashes, it is of no interest to the algorithm, and no requirements are placed on its decision.</p>
+<p><strong>f-resilient system</strong>:</p>
+<ul>
+<li>at most <code>f</code> processors may fail</li>
+<li>The set of faulty processors may be <strong>different</strong> in different executions.</li>
+</ul>
+<p>In the last round:</p>
+<ul>
+<li><code>Clean crash</code>: none or all of the outgoing messages are sent</li>
+<li><code>Not-clean crash</code>: an arbitrary set of its outgoing messages are delivered.</li>
+</ul>
+<h3 id="Consensus-algorithm-in-the-presence-of-crash-failures"><a href="#Consensus-algorithm-in-the-presence-of-crash-failures" class="headerlink" title="Consensus algorithm in the presence of crash failures"></a>Consensus algorithm in the presence of crash failures</h3><p>Each process maintains a set of the values it knows to exist in the system; initially, this set contains only its own input. At the first round, each process broadcasts its own input to all processes. For the subsequent f rounds, each process takes the following actions:</p>
+<ul>
+<li>updates its set by joining it with the sets received from other<br>processes, and</li>
+<li>broadcasts any new additions to the set to all processes.</li>
+</ul>
+<p>After f+1 rounds, the process decides on the smallest value in its set.</p>
+<p><img src="http://static.zybuluo.com/sqfan/lgf5n4i2dja5bmzism90iizr/image_1bveikf7ge2e1bc612bv1vie1e51g.png" alt="image_1bveikf7ge2e1bc612bv1vie1e51g.png-69.6kB"></p>
+<p><img src="http://static.zybuluo.com/sqfan/xn1sspjaamzg1dl37xu5z5mm/image_1bvelori51oup18o6ddh1978mjk1t.png" alt="image_1bvelori51oup18o6ddh1978mjk1t.png-65.1kB"></p>
+<ul>
+<li>Intuition for <code>Agreement</code>: Assume that a process pi decides on a value x smaller than that decided by some other process p_j. Then, x has remained “hidden” from pj for (f+1) rounds. We have at most f faulty processes. A contradiction!!!</li>
+<li>Number of processes: n &gt; f</li>
+<li>Round Complexity: f + 1</li>
+<li><strong>Message Complexity</strong>: (at most) n^2 * |V| messages, where V is the set of input values.</li>
+</ul>
+<h4 id="Worst-case-scenario"><a href="#Worst-case-scenario" class="headerlink" title="Worst case scenario"></a>Worst case scenario</h4><p><img src="http://static.zybuluo.com/sqfan/l5okgj5uwhlx4c9qcpuwb7jt/f-algorithm.gif" alt="f-algorithm.gif-145.7kB"></p>
+<h2 id="Consensus-with-Byzantine-Failures"><a href="#Consensus-with-Byzantine-Failures" class="headerlink" title="Consensus with Byzantine Failures"></a>Consensus with Byzantine Failures</h2><blockquote>
+<p><strong>Theorem (5.7)</strong>:  Any consensus algorithm for 1 Byzantine failure must have at least 4 processors.</p>
+</blockquote>
+<p>Proof of Theorem 5.7:<br><img src="http://static.zybuluo.com/sqfan/fggijnartoo9il036cnmmsee/image_1bven6g7d173d11ef12j8kvdiin34.png" alt="image_1bven6g7d173d11ef12j8kvdiin34.png-61.5kB"></p>
+<blockquote>
+<p><strong>Theorem</strong>:  Any consensus algorithm for <em>f</em> Byzantine failures must have at least <em>3f+1</em> processors.</p>
+</blockquote>
+<ul>
+<li>Partition the processors into three sets P0, P1, P2;<ul>
+<li>Each containing at most n/3 processors</li>
+</ul>
+</li>
+<li>P0 simulates p0, P1 simulates p1 and P2 simulates p2</li>
+<li>n processors solves consensus =&gt; {p0, p1, p2} solves consensus.  ==&gt; Contradiction.</li>
+</ul>
+<h2 id="Exponential-Information-Gathering-EIG-Algorithm"><a href="#Exponential-Information-Gathering-EIG-Algorithm" class="headerlink" title="Exponential Information Gathering (EIG) Algorithm"></a>Exponential Information Gathering (EIG) Algorithm</h2><p>This algorithm uses</p>
+<ul>
+<li>f + 1 rounds (optimal)</li>
+<li>n = 3f + 1 processors (optimal)</li>
+<li>exponential size messages (sub-optimal)</li>
+</ul>
+<p>Each processor keeps a tree data structure in its local state. Values are filled in the tree during the f + 1 rounds<br>At the end, the values in the tree are used to calculate the decision.</p>
+<h3 id="Local-Tree-Data-Structure"><a href="#Local-Tree-Data-Structure" class="headerlink" title="Local Tree Data Structure"></a>Local Tree Data Structure</h3><ul>
+<li>Each tree node is labeled with <strong>a sequence of</strong> unique processor indices.</li>
+<li>Root’s label is empty sequence ; root has level 0</li>
+<li>Root has <code>n</code> children, labeled 0 through n - 1</li>
+<li>Child node labeled i has n - 1 children, labeled i : 0 through i : n-1 (<strong>skipping i : i</strong>)</li>
+<li>Node at level <code>d</code> labeled <code>v</code> has <code>n - d</code> children, labeled v : 0 through v : n-1 (<strong>skipping any index appearing in v</strong>)</li>
+<li>Nodes at level f + 1 are leaves.</li>
+</ul>
+<p>The tree when n = 4 and f = 1 :</p>
+<p><img src="http://static.zybuluo.com/sqfan/joxki8ngdk011adx9codwgn7/image_1bveqt9ttg1pfv5qjv13h615cv7m.png" alt="image_1bveqt9ttg1pfv5qjv13h615cv7m.png-48.1kB"></p>
+<h3 id="Filling-in-the-Tree-Nodes"><a href="#Filling-in-the-Tree-Nodes" class="headerlink" title="Filling in the Tree Nodes"></a>Filling in the Tree Nodes</h3><ul>
+<li>Initially store your input in the root (level 0)</li>
+<li>Round 1:  <ul>
+<li>send level 0 of your tree to all</li>
+<li>store value x received from each p_j in tree node labeled j (level 1); use a default if necessary</li>
+<li>“pj told me that pj ‘s input was x”</li>
+</ul>
+</li>
+<li>Round 2:<ul>
+<li>send level 1 of your tree to all</li>
+<li>store value x received from each pj for each tree node k in tree node labeled k : j (level 2); use a default if necessary</li>
+<li>“pj told me that pk told pj that pk’s input was x”</li>
+</ul>
+</li>
+<li>Continue for f + 1 rounds</li>
+</ul>
+<h3 id="Calculating-the-Decision"><a href="#Calculating-the-Decision" class="headerlink" title="Calculating the Decision"></a>Calculating the Decision</h3><ul>
+<li>In round f + 1, each processor uses the values in its tree to compute its decision.</li>
+<li><p>Recursively compute the “resolved” value for the root of the tree, <code>resolve()</code>, based on the “resolved” values for the other tree nodes:</p>
+<p>  <img src="http://static.zybuluo.com/sqfan/hw0m0wv2ji8j69uweawp48pm/image_1bvepphnj1olttd012914ka1m8662.png" alt="image_1bvepphnj1olttd012914ka1m8662.png-14.8kB"></p>
+</li>
+</ul>
+<p>Example of resolving values when n = 4 and f = 1:</p>
+<p><img src="http://static.zybuluo.com/sqfan/6jwenw1oshgpwdg69okcj6qz/image_1bvepthlf1ipjgsuuea1qej14ko6f.png" alt="image_1bvepthlf1ipjgsuuea1qej14ko6f.png-34.9kB"></p>
+<h2 id="A-Polynomial-Algorithm-The-King-Algorithm"><a href="#A-Polynomial-Algorithm-The-King-Algorithm" class="headerlink" title="A Polynomial Algorithm (The King Algorithm)"></a>A Polynomial Algorithm (The King Algorithm)</h2><p>We can reduce the message size to polynomial with a simple algorithm.</p>
+<ul>
+<li>The number of processors increases to: n &gt; 4f</li>
+<li>The number of rounds increases to 2(f + 1)</li>
+<li>Uses f+1 phases, each taking two rounds.</li>
+</ul>
+<p><img src="http://static.zybuluo.com/sqfan/imhi1feobwcw0fvkt1i1brbb/image_1bveqb3lk1gdip7m1mnu1a791j6a79.png" alt="image_1bveqb3lk1gdip7m1mnu1a791j6a79.png-106kB"></p>
+<h2 id="Asynchronous-Consensus"><a href="#Asynchronous-Consensus" class="headerlink" title="Asynchronous Consensus"></a>Asynchronous Consensus</h2><p>Assumptions</p>
+<ul>
+<li>Communication system is reliable</li>
+<li>Only processor failures (crash / Byzantine)</li>
+<li>Completely asynchronous</li>
+</ul>
+<blockquote>
+<p><strong>Theorem</strong>: For n ≥ 2, there is no algorithm in the read/write shared memory model that solves the agreement problem and guarantees wait-free termination</p>
+</blockquote>
+<p><code>Consensus is impossible</code>!!!</p>
+<ul>
+<li>Even in the presence of one single<br>processor (crash) failure</li>
+</ul>
+<p>Proof of impossibility</p>
+<ul>
+<li>Impossibility for shared memory<ul>
+<li>The (n-1)-resilient case (wait-free case)</li>
+<li>The 1-resilient case</li>
+</ul>
+</li>
+<li>Impossibility for message passing <ul>
+<li>Simulation</li>
+</ul>
+</li>
+<li>Impossibility motivates the use of <code>failure detectors</code>.<ul>
+<li>E.g., “The weakest failure detector for solving consensus”, JACM 43(4).</li>
+</ul>
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Let f be the maximum number of faulty processors.</p>
+<p><img src="http://static.zybuluo.com/sqfan/19nqclsounkyu7x122nfsvow/image_1bvesf5cr18v9imp1b2l19cbkp2aq.png" alt="image_1bvesf5cr18v9imp1b2l19cbkp2aq.png-45.2kB"></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] <a href="http://hagit.net.technion.ac.il/publications/dc/" target="_blank" rel="external">Attiya, Hagit, and Jennifer Welch. <strong>Distributed computing</strong>: fundamentals, simulations, and advanced topics. Vol. 19. John Wiley &amp; Sons, 2004.</a>.<br>[2] <a href="https://www.youtube.com/watch?v=_e4wNoTV3Gw&amp;index=6&amp;list=PLOE1GTZ5ouRPbpTnrZ3Wqjamfwn_Q5Y9A" target="_blank" rel="external">Byzantine Fault Tolerance, Distributed System (A free online class), by Chris Colohan</a>.<br>[3] The Byzantine Generals Problem, Leslie Lamport, Robert Shostack and Mashall Peace.  ACM TOPLAS 4.3, 1982.<br>[4] <a href="https://parasol.tamu.edu/~welch/teaching/668.s14/" target="_blank" rel="external">CSCE 668: Distributed Algorithms and Systems Spring 2014</a>.</p>
 
       
     </div>
@@ -561,9 +682,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
-          
-            <a href="/tags/Linux性能分析/" rel="tag"><i class="fa fa-tag"></i> Linux性能分析</a>
+            <a href="/tags/分布式算法/" rel="tag"><i class="fa fa-tag"></i> 分布式算法</a>
           
         </div>
       
@@ -576,8 +695,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/15/算法基础/" rel="next" title="算法基础">
-                <i class="fa fa-chevron-left"></i> 算法基础
+              <a href="/2017/10/19/L04-Mutual-Exclusion/" rel="next" title="L04-Mutual Exclusion">
+                <i class="fa fa-chevron-left"></i> L04-Mutual Exclusion
               </a>
             
           </div>
@@ -585,10 +704,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/27/L01-Model-of-Computation/" rel="prev" title="L01-Model of Computation">
-                L01-Model of Computation <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -802,7 +917,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#htop命令简介"><span class="nav-number">1.</span> <span class="nav-text">htop命令简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#htop-vs-top"><span class="nav-number">1.1.</span> <span class="nav-text">htop vs top</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监控面板介绍"><span class="nav-number">3.</span> <span class="nav-text">监控面板介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统CPU使用率"><span class="nav-number">3.1.</span> <span class="nav-text">系统CPU使用率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统内存使用率"><span class="nav-number">3.2.</span> <span class="nav-text">系统内存使用率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统平均负载"><span class="nav-number">3.3.</span> <span class="nav-text">系统平均负载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程详细实时信息列表"><span class="nav-number">3.4.</span> <span class="nav-text">进程详细实时信息列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Read-More"><span class="nav-number">4.</span> <span class="nav-text">Read More</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Processor-Failures-in-Message-Passing"><span class="nav-number">2.</span> <span class="nav-text">Processor Failures in Message Passing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Failure-Matrix"><span class="nav-number">2.1.</span> <span class="nav-text">Failure Matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Negative-result-for-link-failures"><span class="nav-number">2.2.</span> <span class="nav-text">Negative result for link failures</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Consensus-Problem"><span class="nav-number">3.</span> <span class="nav-text">The Consensus Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Consensus-algorithm-in-the-presence-of-crash-failures"><span class="nav-number">3.1.</span> <span class="nav-text">Consensus algorithm in the presence of crash failures</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Worst-case-scenario"><span class="nav-number">3.1.1.</span> <span class="nav-text">Worst case scenario</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consensus-with-Byzantine-Failures"><span class="nav-number">4.</span> <span class="nav-text">Consensus with Byzantine Failures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exponential-Information-Gathering-EIG-Algorithm"><span class="nav-number">5.</span> <span class="nav-text">Exponential Information Gathering (EIG) Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-Tree-Data-Structure"><span class="nav-number">5.1.</span> <span class="nav-text">Local Tree Data Structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filling-in-the-Tree-Nodes"><span class="nav-number">5.2.</span> <span class="nav-text">Filling in the Tree Nodes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calculating-the-Decision"><span class="nav-number">5.3.</span> <span class="nav-text">Calculating the Decision</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Polynomial-Algorithm-The-King-Algorithm"><span class="nav-number">6.</span> <span class="nav-text">A Polynomial Algorithm (The King Algorithm)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Asynchronous-Consensus"><span class="nav-number">7.</span> <span class="nav-text">Asynchronous Consensus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">8.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">9.</span> <span class="nav-text">References</span></a></li></ol></div>
             
 
           </div>
