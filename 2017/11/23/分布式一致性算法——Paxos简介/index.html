@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/gd8aghb5o63zx8yijyqcv4go/image_1bvmj2o589801qd21nof81i1c20.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/rt9lujh3o79azyjlln6vz782/image_1bvmj64o24gqa4m1fut1qgv13k837.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/4ilw569xoojo21mlbbzxms2h/image_1bvmj6lggiit1oik14nq20u1maj3k.png">
-<meta property="og:updated_time" content="2017-11-24T11:14:06.000Z">
+<meta property="og:updated_time" content="2017-11-24T11:24:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式一致性算法——Paxos简介">
 <meta name="twitter:description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。">
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  4,269
+                  4,262
                 </span>
               
 
@@ -507,7 +507,7 @@
 <p>实际实现中，一个节点往往同时扮演这多个角色（通常是3个）。当在某个提议值上达成共识时我们就说这个值被选出来了。简单起见，在下面的算法分析中，我们只考虑Basic Paxos算法（没有learner这个角色）。</p>
 <h4 id="提议编号"><a href="#提议编号" class="headerlink" title="提议编号"></a>提议编号</h4><p>Paxos能在不可靠的通信信道上进行操作的关键之一是为每个proposal分配一个唯一的ID。Proposal ID是什么以及为什么重要的细节将在稍后带来，这里我们先将这些ID视为与<strong>时间戳（timestamps）</strong>类似的角色：它们不仅让peers能从逻辑上判断一条消息是否比另一条消息更新，而且绕开了分布式系统中一致的、共享的时间概念（notions of time）所固有的复杂性。</p>
 <p>Proposal ID的常见实现是一个简单的整数和一个用于确保唯一性的一个“tie-breaker”组成数对。这里使用的ID的pair的组合模式是 &lt; Integer, 节点的ID（具有唯一性）&gt;， 例如，（1，A）。这些ID是可比较的。为了确定哪个ID在逻辑上更新，第一个整数首先以正常的方式进行比较，并且如果它们相等，则将这些唯一的ID字符串进行字典序比较以打破不分胜负的局面，因而有（5，B）&gt;（4，B）&gt;（4，A）。</p>
-<p><strong>ID的主要目的是保护算法免受延迟和/或重复的消息的影</strong>响。 Paxos使用一个非常简单的规则来实现这一点。如果新收到的消息的ID大于上一个处理的消息的ID，则对其进行处理。否则忽略这条消息。忽略延迟信息的动机并不像忽略重复消息那样显而易见，其原因来自于在Paxos这样一个多步骤的算法中, 与旧的和过期的step相关的消息不被允许干扰当前active step的消息。</p>
+<p><strong>ID的主要目的是保护算法免受延迟和/或重复的消息的影响</strong>。 Paxos使用一个非常简单的规则来实现这一点。如果新收到的消息的ID大于上一个处理的消息的ID，则对其进行处理。否则忽略这条消息。忽略延迟信息的动机并不像忽略重复消息那样显而易见，其原因来自于在Paxos这样一个多步骤的算法中, 与旧的和过期的step相关的消息不被允许干扰当前active step的消息。</p>
 <h3 id="Paxos算法流程"><a href="#Paxos算法流程" class="headerlink" title="Paxos算法流程"></a>Paxos算法流程</h3><p>Paxos算法具体分为两个阶段。</p>
 <ul>
 <li>第一阶段（<strong>prepare</strong>）： 提议者选择一个全局唯一的建议值n，并向多数的（过半）接受者（majority of acceptors）发送一个准备请求（prepare request）：prepare(n)。如果一个接受者接收到一个值为n的准备请求，且该请求值比它看到的任何请求值都大，那么它对该请求作出确认答复promise(n)，承诺不再接收任何小于这个n的提议（<strong>并且包括它已经接收了的编号最高的提案（如果有的话）</strong>）</li>
@@ -515,14 +515,14 @@
 </ul>
 <p>Basic Paxos算法流程具体流程如下图：</p>
 <p><img src="http://static.zybuluo.com/sqfan/8ilewyjhouw644hjqk9j35og/image_1bvmajadnc8nsuh1tqe1ved19kd25.png" alt="image_1bvmajadnc8nsuh1tqe1ved19kd25.png-402.8kB"></p>
-<p>这里还需要对一个提议值被选择的概念做一个阐述：一个提议值n被选择当且仅当在上述算法的第二阶段超过半数的接收者接收了该值。这里有必要对Paxos算法里的这个majority这个概念多加阐述。</p>
+<p>这里还需要对一个提议值被选择的概念做一个阐述：一个提议值value被选择当且仅当在上述算法的第二阶段超过半数的接收者接收了该值。这里有必要对Paxos算法里的这个majority这个概念多加阐述。</p>
 <blockquote>
 <p>强大多数（Strong Majority/Quorum): 一组由一半以上的接受者组成的集合。</p>
 </blockquote>
-<p>通过上面的描述可知，在节点间达成共识的关键思想就是这个“强大多数”的概念。这个概念的特殊之处在于：任意两个“强大多数”的集合都至少有一个共同的成员节点。Paxos算法通过让提议者向“强大多数”的接收者发送提议来利用这个特性：如果我们可以得到超过半数的节点来对某个单一的提议值达成共识，那么我们已经达成一致；因为所有其他Quorum将包含至少一个此Quorum的节点，而交集内的进程就可以保证正确性被继承，以后被传播出去。同时，这也意味着我们一次可以容忍的错误节点的数量： 若正常工作的节点小于等于半数个节点，就不可能形成多数。</p>
+<p>通过上面的描述可知，在节点间达成共识的关键思想就是这个“强大多数”的概念。这个概念的特殊之处在于：任意两个“强大多数”的集合都至少有一个共同的成员节点。Paxos算法通过让提议者向“强大多数”的接收者发送提议来利用这个特性：如果我们可以得到超过半数的节点来对某个单一的提议值达成共识，那么我们已经达成一致；因为所有其他Quorum将包含至少一个此Quorum的节点，而<strong>交集内的进程就可以保证正确性被继承，以后被传播出去</strong>。同时，这也意味着我们一次可以容忍的错误节点的数量： 若正常工作的节点小于等于半数个节点，就不可能形成多数。</p>
 <p>那为什么要分为两个阶段呢？先说一下prepare阶段的作用。第一，检查是有已经有被批准的值，如果有的话，就用被批准的值。第二，如果之前存在提议还没有被接受，则干掉他们（以便不让他们和我们发生竞争）。</p>
-<p>第一阶段中proposal ID (即prepare()发送的n)有什么特性呢？Paxos算法要求Proposal ID全局唯一且递增。为什么要这样设计呢？这个ID实际上相当于一个虚拟时钟（virtual clock), 所有的acceptors都会使用这个ID，用来保证当它收到任意节点发来的消息时，该消息是最新的（或者说是目前处于Paxos算法最新一轮的消息）而不是过时的消息（系统异步环境下消息的允许任意延迟）。事实上，全局唯一ID（且递增）的生成本身是需要一定的技术来保证的：毕竟需要同时满足高并发、高可用、低延迟这样的需求可不简单。微信的seqvr系统就是专门用来做这种序列生成的。</p>
-<p>是不是算法已经完全没有问题了呢？根据上述过程，当一个proposer发现存在编号更大的提案时将终止提案。这意味着提出一个编号更大的提案会终止之前的提案过程。如果两个节点在这种情况下都转而提出一个编号更大的提案，就可能陷入活锁（live lock），违背了Progress的原则。这种情况下的解决方案是选举出一个leader（用我们之前学的leader election知识），仅允许leader提出提案。但是由于消息传递的不确定性（异步通信模型），可能有多个proposer自认为自己已经成为leader（也就是没有达成谁是leader的consensus）。</p>
+<p>第一阶段中proposal ID (即prepare()发送的n)有什么特性呢？Paxos算法要求Proposal ID全局唯一且递增。为什么要这样设计呢？这个ID实际上相当于一个虚拟时钟（virtual clock), 所有的acceptors都会使用这个ID，用来保证当它收到任意节点发来的消息时，该消息是最新的（或者说是目前处于Paxos算法最新一轮的消息）而不是过时的消息（系统异步环境下消息的允许任意延迟）。事实上，全局唯一ID（且递增）的生成本身是需要一定的技术来保证的：毕竟需要同时满足高并发、高可用、低延迟这样的需求可不简单，例如，微信的seqvr系统就是专门用来做这种序列生成的。</p>
+<p>是不是算法已经完全没有问题了呢？根据上述过程，当一个proposer发现存在编号更大的提案时将终止提案。这意味着提出一个编号更大的提案会终止之前的提案过程。<strong>如果两个节点在这种情况下都转而提出一个编号更大的提案，就可能陷入活锁（live lock）</strong>，违背了liveness的原则。这种情况下的解决方案是选举出一个leader（leader election），仅允许leader提出提案。但是由于消息传递的不确定性（异步通信模型），可能有多个proposer自认为自己已经成为leader,也就是没有达成谁是leader的consensus。</p>
 <h3 id="一个示例（不考虑failures）"><a href="#一个示例（不考虑failures）" class="headerlink" title="一个示例（不考虑failures）"></a>一个示例（不考虑failures）</h3><p>2个proposor, 3个acceptor, 1个learner.</p>
 <ul>
 <li>Phase 1: Prepare/Promise </li>
