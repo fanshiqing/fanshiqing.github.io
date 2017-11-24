@@ -95,23 +95,23 @@
 
 
 
-<meta name="description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。  Paxos is a">
+<meta name="description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。">
 <meta name="keywords" content="分布式算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式一致性算法——Paxos简介">
 <meta property="og:url" content="http://fanshiqing.github.io/2017/11/23/分布式一致性算法——Paxos简介/index.html">
 <meta property="og:site_name" content="Shiqing Fan&#39;s Blog">
-<meta property="og:description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。  Paxos is a">
+<meta property="og:description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/8ilewyjhouw644hjqk9j35og/image_1bvmajadnc8nsuh1tqe1ved19kd25.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/zqieqklcxmqscwrcv5504jks/image_1bvmj4ee41pfg1ech1pvtlhh1bn12q.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/bazc3scx2b8uh775pfx1ng4k/image_1bvmj3o9go1a4f61bq9j2ad052d.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/gd8aghb5o63zx8yijyqcv4go/image_1bvmj2o589801qd21nof81i1c20.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/rt9lujh3o79azyjlln6vz782/image_1bvmj64o24gqa4m1fut1qgv13k837.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/4ilw569xoojo21mlbbzxms2h/image_1bvmj6lggiit1oik14nq20u1maj3k.png">
-<meta property="og:updated_time" content="2017-11-24T09:26:59.000Z">
+<meta property="og:updated_time" content="2017-11-24T09:31:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式一致性算法——Paxos简介">
-<meta name="twitter:description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。  Paxos is a">
+<meta name="twitter:description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。">
 <meta name="twitter:image" content="http://static.zybuluo.com/sqfan/8ilewyjhouw644hjqk9j35og/image_1bvmajadnc8nsuh1tqe1ved19kd25.png">
 
 
@@ -452,10 +452,11 @@
 
       
         <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。</p>
+<a id="more"></a>
 <blockquote>
 <p><strong>Paxos</strong> is a mechanism for achieving consensus on a single value over unreliable communication channels.</p>
-<h2 id="Paxos算法分析"><a href="#Paxos算法分析" class="headerlink" title="Paxos算法分析"></a>Paxos算法分析</h2></blockquote>
-<h3 id="分布式一致性问题-The-distributed-consensus-problem）"><a href="#分布式一致性问题-The-distributed-consensus-problem）" class="headerlink" title="分布式一致性问题(The distributed consensus problem）"></a>分布式一致性问题(The distributed consensus problem）</h3><blockquote>
+</blockquote>
+<h2 id="Paxos算法分析"><a href="#Paxos算法分析" class="headerlink" title="Paxos算法分析"></a>Paxos算法分析</h2><h3 id="分布式一致性问题-The-distributed-consensus-problem）"><a href="#分布式一致性问题-The-distributed-consensus-problem）" class="headerlink" title="分布式一致性问题(The distributed consensus problem）"></a>分布式一致性问题(The distributed consensus problem）</h3><blockquote>
 <p><strong>Consistency</strong><br>Get multiple servers to agree on state.</p>
 <p><strong>Consistenty类型</strong></p>
 <ul>
