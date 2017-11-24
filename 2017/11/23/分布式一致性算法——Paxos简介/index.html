@@ -95,29 +95,24 @@
 
 
 
-<meta name="description" content="Preface The consensus problem Consensus with Byzantine Failures">
+<meta name="description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。  Paxos is a">
 <meta name="keywords" content="分布式算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="L05-Fault-tolerant consensus">
-<meta property="og:url" content="http://fanshiqing.github.io/2017/10/26/L05-Fault-tolerant-consensus/index.html">
+<meta property="og:title" content="分布式一致性算法——Paxos简介">
+<meta property="og:url" content="http://fanshiqing.github.io/2017/11/23/分布式一致性算法——Paxos简介/index.html">
 <meta property="og:site_name" content="Shiqing Fan&#39;s Blog">
-<meta property="og:description" content="Preface The consensus problem Consensus with Byzantine Failures">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/a3w5713ss4n0p18hy8q194g4/image_1bvc1f0gs1721tm5m0h17fq170j9.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/y946xgli1f5gy525hehs9fft/image_1bves2gnp6fhd301i32eni1dos83.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/lgf5n4i2dja5bmzism90iizr/image_1bveikf7ge2e1bc612bv1vie1e51g.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/xn1sspjaamzg1dl37xu5z5mm/image_1bvelori51oup18o6ddh1978mjk1t.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/l5okgj5uwhlx4c9qcpuwb7jt/f-algorithm.gif">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/fggijnartoo9il036cnmmsee/image_1bven6g7d173d11ef12j8kvdiin34.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/joxki8ngdk011adx9codwgn7/image_1bveqt9ttg1pfv5qjv13h615cv7m.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/hw0m0wv2ji8j69uweawp48pm/image_1bvepphnj1olttd012914ka1m8662.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/6jwenw1oshgpwdg69okcj6qz/image_1bvepthlf1ipjgsuuea1qej14ko6f.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/imhi1feobwcw0fvkt1i1brbb/image_1bveqb3lk1gdip7m1mnu1a791j6a79.png">
-<meta property="og:image" content="http://static.zybuluo.com/sqfan/19nqclsounkyu7x122nfsvow/image_1bvesf5cr18v9imp1b2l19cbkp2aq.png">
-<meta property="og:updated_time" content="2017-11-21T09:14:56.000Z">
+<meta property="og:description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。  Paxos is a">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/8ilewyjhouw644hjqk9j35og/image_1bvmajadnc8nsuh1tqe1ved19kd25.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/zqieqklcxmqscwrcv5504jks/image_1bvmj4ee41pfg1ech1pvtlhh1bn12q.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/bazc3scx2b8uh775pfx1ng4k/image_1bvmj3o9go1a4f61bq9j2ad052d.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/gd8aghb5o63zx8yijyqcv4go/image_1bvmj2o589801qd21nof81i1c20.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/rt9lujh3o79azyjlln6vz782/image_1bvmj64o24gqa4m1fut1qgv13k837.png">
+<meta property="og:image" content="http://static.zybuluo.com/sqfan/4ilw569xoojo21mlbbzxms2h/image_1bvmj6lggiit1oik14nq20u1maj3k.png">
+<meta property="og:updated_time" content="2017-11-24T09:26:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="L05-Fault-tolerant consensus">
-<meta name="twitter:description" content="Preface The consensus problem Consensus with Byzantine Failures">
-<meta name="twitter:image" content="http://static.zybuluo.com/sqfan/a3w5713ss4n0p18hy8q194g4/image_1bvc1f0gs1721tm5m0h17fq170j9.png">
+<meta name="twitter:title" content="分布式一致性算法——Paxos简介">
+<meta name="twitter:description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。  Paxos is a">
+<meta name="twitter:image" content="http://static.zybuluo.com/sqfan/8ilewyjhouw644hjqk9j35og/image_1bvmajadnc8nsuh1tqe1ved19kd25.png">
 
 
 
@@ -145,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://fanshiqing.github.io/2017/10/26/L05-Fault-tolerant-consensus/"/>
+  <link rel="canonical" href="http://fanshiqing.github.io/2017/11/23/分布式一致性算法——Paxos简介/"/>
 
 
 
 
 
-  <title>L05-Fault-tolerant consensus | Shiqing Fan's Blog</title>
+  <title>分布式一致性算法——Paxos简介 | Shiqing Fan's Blog</title>
   
 
 
@@ -324,7 +319,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://fanshiqing.github.io/2017/10/26/L05-Fault-tolerant-consensus/">
+    <link itemprop="mainEntityOfPage" href="http://fanshiqing.github.io/2017/11/23/分布式一致性算法——Paxos简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shiqing Fan">
@@ -341,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">L05-Fault-tolerant consensus</h1>
+          <h1 class="post-title" itemprop="name headline">分布式一致性算法——Paxos简介</h1>
         
 
         <div class="post-meta">
@@ -353,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-26T16:31:03+08:00">
-                2017-10-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T16:31:03+08:00">
+                2017-11-23
               </time>
             
 
@@ -394,8 +389,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/10/26/L05-Fault-tolerant-consensus/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://fanshiqing.github.io/2017/10/26/L05-Fault-tolerant-consensus/" itemprop="commentCount">0</span> comments
+                <a href="/2017/11/23/分布式一致性算法——Paxos简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://fanshiqing.github.io/2017/11/23/分布式一致性算法——Paxos简介/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -422,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,154
+                  4,292
                 </span>
               
 
@@ -438,7 +433,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  7
+                  15
                 </span>
               
             </div>
@@ -456,182 +451,107 @@
       
 
       
-        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><ul>
-<li>The consensus problem</li>
-<li>Consensus with Byzantine Failures</li>
-</ul>
-<a id="more"></a>
-<h2 id="Processor-Failures-in-Message-Passing"><a href="#Processor-Failures-in-Message-Passing" class="headerlink" title="Processor Failures in Message Passing"></a>Processor Failures in Message Passing</h2><ul>
-<li><code>Fail stop</code>: at some point the processor stops taking steps<ul>
-<li>at the processor’s final step, it might succeed in sending only <strong>a subset of the messages</strong> it is supposed to send, e.g.: <ul>
-<li><code>Crash</code></li>
-<li>Power outage</li>
-<li>Hardware failure</li>
-<li>Out of memory/disk full</li>
-</ul>
-</li>
-<li>Strategies:<ul>
-<li>Checkpoint state and restart (<strong>High latency</strong>)</li>
-<li>Replicate state and fail over (失效备援) (<strong>High cost</strong>)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>Byzantine</code>: <strong>Everything that is not fail stop</strong>. Processor changes state arbitrarily and sends message with arbitrary content. <ul>
-<li>E.g.:<ul>
-<li>Bit flip in memory or on disk corrupts data</li>
-<li>Older version of code on one node sends (now) invalid messages</li>
-<li>Node starts running malicious version of software</li>
-</ul>
-</li>
-<li>Goal: turn into fail stop<ul>
-<li>Checksums/ECC (Error Correction Code)</li>
-<li>Assertions</li>
-<li>Timeouts</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Failure-Matrix"><a href="#Failure-Matrix" class="headerlink" title="Failure Matrix"></a>Failure Matrix</h3><p><img src="http://static.zybuluo.com/sqfan/a3w5713ss4n0p18hy8q194g4/image_1bvc1f0gs1721tm5m0h17fq170j9.png" alt="image_1bvc1f0gs1721tm5m0h17fq170j9.png-44.5kB"></p>
-<h3 id="Negative-result-for-link-failures"><a href="#Negative-result-for-link-failures" class="headerlink" title="Negative result for link failures"></a>Negative result for <strong>link failures</strong></h3><p>It is impossible to reach consensus in case of link failures, even in the synchronous case, and even if one only wants to tolerate a single link failure.</p>
-<p>Consensus under link failures: <code>the 2 generals problem</code>.</p>
-<ul>
-<li>There are two generals of the same army who have encamped a short distance apart.</li>
-<li>Their objective is to capture a hill, which is possible only if they attack simultaneously. </li>
-<li>If only one general attacks, he will be defeated. </li>
-<li>The two generals can only communicate by sending messengers, <strong>which is not reliable</strong>. </li>
-<li>Is it possible for them to attack simultaneously?</li>
-</ul>
-<p><img src="http://static.zybuluo.com/sqfan/y946xgli1f5gy525hehs9fft/image_1bves2gnp6fhd301i32eni1dos83.png" alt="image_1bves2gnp6fhd301i32eni1dos83.png-39.6kB"></p>
-<p>See <a href="https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf" target="_blank" rel="external">Fischer/Lynch/Paterson</a> for more discussion.</p>
-<h2 id="The-Consensus-Problem"><a href="#The-Consensus-Problem" class="headerlink" title="The Consensus Problem"></a>The Consensus Problem</h2><p>Each process starts with an individual <code>input</code> from a particular value set V. Processes may fail by crashing. All non-faulty processes are required to produce outputs from the value set V, subject to simple agreement and validity. A solution to the <strong>consensus proble</strong>m must guarantee the following:</p>
-<ul>
-<li><code>Termination</code>: Eventually every <strong>nonfaulty processor</strong> must decide on a value (decision is irrevocable).</li>
-<li><code>Agreement</code>: All decisions by nonfaulty processors must be the same.</li>
-<li><code>Validity</code>: If all inputs are the same, then the decision of a nonfaulty processor must equal the common input</li>
-</ul>
-<p>Once a processor crashes, it is of no interest to the algorithm, and no requirements are placed on its decision.</p>
-<p><strong>f-resilient system</strong>:</p>
-<ul>
-<li>at most <code>f</code> processors may fail</li>
-<li>The set of faulty processors may be <strong>different</strong> in different executions.</li>
-</ul>
-<p>In the last round:</p>
-<ul>
-<li><code>Clean crash</code>: none or all of the outgoing messages are sent</li>
-<li><code>Not-clean crash</code>: an arbitrary set of its outgoing messages are delivered.</li>
-</ul>
-<h3 id="Consensus-algorithm-in-the-presence-of-crash-failures"><a href="#Consensus-algorithm-in-the-presence-of-crash-failures" class="headerlink" title="Consensus algorithm in the presence of crash failures"></a>Consensus algorithm in the presence of crash failures</h3><p>Each process maintains a set of the values it knows to exist in the system; initially, this set contains only its own input. At the first round, each process broadcasts its own input to all processes. For the subsequent f rounds, each process takes the following actions:</p>
-<ul>
-<li>updates its set by joining it with the sets received from other<br>processes, and</li>
-<li>broadcasts any new additions to the set to all processes.</li>
-</ul>
-<p>After f+1 rounds, the process decides on the smallest value in its set.</p>
-<p><img src="http://static.zybuluo.com/sqfan/lgf5n4i2dja5bmzism90iizr/image_1bveikf7ge2e1bc612bv1vie1e51g.png" alt="image_1bveikf7ge2e1bc612bv1vie1e51g.png-69.6kB"></p>
-<p><img src="http://static.zybuluo.com/sqfan/xn1sspjaamzg1dl37xu5z5mm/image_1bvelori51oup18o6ddh1978mjk1t.png" alt="image_1bvelori51oup18o6ddh1978mjk1t.png-65.1kB"></p>
-<ul>
-<li>Intuition for <code>Agreement</code>: Assume that a process pi decides on a value x smaller than that decided by some other process p_j. Then, x has remained “hidden” from pj for (f+1) rounds. We have at most f faulty processes. A contradiction!!!</li>
-<li>Number of processes: n &gt; f</li>
-<li>Round Complexity: f + 1</li>
-<li><strong>Message Complexity</strong>: (at most) n^2 * |V| messages, where V is the set of input values.</li>
-</ul>
-<h4 id="Worst-case-scenario"><a href="#Worst-case-scenario" class="headerlink" title="Worst case scenario"></a>Worst case scenario</h4><p><img src="http://static.zybuluo.com/sqfan/l5okgj5uwhlx4c9qcpuwb7jt/f-algorithm.gif" alt="f-algorithm.gif-145.7kB"></p>
-<h2 id="Consensus-with-Byzantine-Failures"><a href="#Consensus-with-Byzantine-Failures" class="headerlink" title="Consensus with Byzantine Failures"></a>Consensus with Byzantine Failures</h2><blockquote>
-<p><strong>Theorem (5.7)</strong>:  Any consensus algorithm for 1 Byzantine failure must have at least 4 processors.</p>
-</blockquote>
-<p>Proof of Theorem 5.7:<br><img src="http://static.zybuluo.com/sqfan/fggijnartoo9il036cnmmsee/image_1bven6g7d173d11ef12j8kvdiin34.png" alt="image_1bven6g7d173d11ef12j8kvdiin34.png-61.5kB"></p>
+        <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。</p>
 <blockquote>
-<p><strong>Theorem</strong>:  Any consensus algorithm for <em>f</em> Byzantine failures must have at least <em>3f+1</em> processors.</p>
+<p><strong>Paxos</strong> is a mechanism for achieving consensus on a single value over unreliable communication channels.</p>
+<h2 id="Paxos算法分析"><a href="#Paxos算法分析" class="headerlink" title="Paxos算法分析"></a>Paxos算法分析</h2></blockquote>
+<h3 id="分布式一致性问题-The-distributed-consensus-problem）"><a href="#分布式一致性问题-The-distributed-consensus-problem）" class="headerlink" title="分布式一致性问题(The distributed consensus problem）"></a>分布式一致性问题(The distributed consensus problem）</h3><blockquote>
+<p><strong>Consistency</strong><br>Get multiple servers to agree on state.</p>
+<p><strong>Consistenty类型</strong></p>
+<ul>
+<li><strong>Strong</strong>: 强一致性。要求无论更新操作是在哪一个副本执行，之后所有的读操作都要能获得最新的数据（对用户最友好，但是性能影响大）;</li>
+<li><strong>Weak</strong>:<br>弱一致性。用户读到某一操作对系统特定数据的更新需要一段时间，我们称这段时间为“不一致性窗口”。但经过“<em>不一致时间窗口</em>”这段时间后，后续对该数据的读取都是更新后的值 (best effort only, used for cache);</li>
+<li><strong>Eventually</strong><br>最终一致性。是弱一致性的一种特例，保证用户最终能够读取到某操作对系统特定数据的更新(DNS是典型的最终一致性系统)。</li>
+</ul>
 </blockquote>
+<p>在分布式系统中，我们如何能够在多个选项中选择一个单独的动作（action）呢？又该如何让这个动作能以容错（fault-tolerant）的方式来完成呢？这是分布式共识问题的基本问题。这个问题听起来似乎很简单：只需要选择一个节点来做决定嘛！但显然这会引入单点失效问题：如果这个唯一的决策者失效了，那所有其他节点就没有办法知道该采取哪个行动了（这其实违反了接下来要介绍的Paxos原则之一的存活性原则）。那在决策者失效时重新选择一个决策者会如何？但这可能会导致最终有两个决策者，而每个决策者可能做出不同的决定，导致共识不能达成。好吧这个问题似乎不那么简单。让我们来看看Paxos是如何解决这个问题的。</p>
+<h3 id="两个原则（requirements）"><a href="#两个原则（requirements）" class="headerlink" title="两个原则（requirements）}"></a>两个原则（requirements）}</h3><p>现在我们已经对这个一致性问题有了直觉上的认识，下面来阐述解决方案的两个原则：安全原则和存活原则。</p>
 <ul>
-<li>Partition the processors into three sets P0, P1, P2;<ul>
-<li>Each containing at most n/3 processors</li>
+<li>安全原则 (safety)：系统不会产生“错误”的答案<ul>
+<li>只有被提议（proposed）的值才可能被选中（chosen)</li>
+<li>只有一个值被选中</li>
+<li>一个节点永远不会知道一个值已经被选择，除非它本身已经被选中 （一旦达成共识，这个事实被公之于众，且不可更改(回退？)）</li>
 </ul>
 </li>
-<li>P0 simulates p0, P1 simulates p1 and P2 simulates p2</li>
-<li>n processors solves consensus =&gt; {p0, p1, p2} solves consensus.  ==&gt; Contradiction.</li>
-</ul>
-<h2 id="Exponential-Information-Gathering-EIG-Algorithm"><a href="#Exponential-Information-Gathering-EIG-Algorithm" class="headerlink" title="Exponential Information Gathering (EIG) Algorithm"></a>Exponential Information Gathering (EIG) Algorithm</h2><p>This algorithm uses</p>
-<ul>
-<li>f + 1 rounds (optimal)</li>
-<li>n = 3f + 1 processors (optimal)</li>
-<li>exponential size messages (sub-optimal)</li>
-</ul>
-<p>Each processor keeps a tree data structure in its local state. Values are filled in the tree during the f + 1 rounds<br>At the end, the values in the tree are used to calculate the decision.</p>
-<h3 id="Local-Tree-Data-Structure"><a href="#Local-Tree-Data-Structure" class="headerlink" title="Local Tree Data Structure"></a>Local Tree Data Structure</h3><ul>
-<li>Each tree node is labeled with <strong>a sequence of</strong> unique processor indices.</li>
-<li>Root’s label is empty sequence ; root has level 0</li>
-<li>Root has <code>n</code> children, labeled 0 through n - 1</li>
-<li>Child node labeled i has n - 1 children, labeled i : 0 through i : n-1 (<strong>skipping i : i</strong>)</li>
-<li>Node at level <code>d</code> labeled <code>v</code> has <code>n - d</code> children, labeled v : 0 through v : n-1 (<strong>skipping any index appearing in v</strong>)</li>
-<li>Nodes at level f + 1 are leaves.</li>
-</ul>
-<p>The tree when n = 4 and f = 1 :</p>
-<p><img src="http://static.zybuluo.com/sqfan/joxki8ngdk011adx9codwgn7/image_1bveqt9ttg1pfv5qjv13h615cv7m.png" alt="image_1bveqt9ttg1pfv5qjv13h615cv7m.png-48.1kB"></p>
-<h3 id="Filling-in-the-Tree-Nodes"><a href="#Filling-in-the-Tree-Nodes" class="headerlink" title="Filling in the Tree Nodes"></a>Filling in the Tree Nodes</h3><ul>
-<li>Initially store your input in the root (level 0)</li>
-<li>Round 1:  <ul>
-<li>send level 0 of your tree to all</li>
-<li>store value x received from each p_j in tree node labeled j (level 1); use a default if necessary</li>
-<li>“pj told me that pj ‘s input was x”</li>
+<li>存活原则 (liveness)：只要多数节点存活并且彼此间可以通信，最终都要做到的事情（正常运行）<ul>
+<li>某个被提议的值最终将被选中</li>
+<li>如果某个值已经被选中，那么其他节点最终可以学习到这个值</li>
 </ul>
 </li>
-<li>Round 2:<ul>
-<li>send level 1 of your tree to all</li>
-<li>store value x received from each pj for each tree node k in tree node labeled k : j (level 2); use a default if necessary</li>
-<li>“pj told me that pk told pj that pk’s input was x”</li>
+</ul>
+<h3 id="基本假设（assumptions）"><a href="#基本假设（assumptions）" class="headerlink" title="基本假设（assumptions）"></a>基本假设（assumptions）</h3><p>除了上述的两条原则之外，我们还需要对分布式系统的工作原理以及可能失效的情形作出一些假设。分布式系统中的节点通信主要存在两种模型：共享内存和消息传递。Paxos算法基于消息传递。在基于消息传递的分布式系统中，不可避免地会出现消息延迟、丢失、重复的情形。此外，在消息传递模型中，节点故障可以分为失效停止（fail stop）和拜占庭错误（Byzantine Failure）（所有不是失效-停止的错误都可以归为拜占庭错误）两大类，基础Paxos算法不考虑拜占庭将军问题。更具体地，基础Paxos算法的基本假设具体如下。</p>
+<ul>
+<li><strong>失效-停止</strong> 假设<ul>
+<li>失败-停止： 当一个节点发生故障时，它将完全停止工作</li>
+<li>重启：故障的节点重新启动时可以恢复正常操作</li>
 </ul>
 </li>
-<li>Continue for f + 1 rounds</li>
+<li><strong>消息</strong>（messages）相关的假设：基于消息传递的异步通信<ul>
+<li>消息可以丢失</li>
+<li>消息可以重复发送</li>
+<li>消息可以延迟(只要等待足够的时间，消息就会被送到)（乱序到达）但是消息不会被篡改（即不考虑拜占庭错误）</li>
 </ul>
-<h3 id="Calculating-the-Decision"><a href="#Calculating-the-Decision" class="headerlink" title="Calculating the Decision"></a>Calculating the Decision</h3><ul>
-<li>In round f + 1, each processor uses the values in its tree to compute its decision.</li>
-<li><p>Recursively compute the “resolved” value for the root of the tree, <code>resolve()</code>, based on the “resolved” values for the other tree nodes:</p>
-<p>  <img src="http://static.zybuluo.com/sqfan/hw0m0wv2ji8j69uweawp48pm/image_1bvepphnj1olttd012914ka1m8662.png" alt="image_1bvepphnj1olttd012914ka1m8662.png-14.8kB"></p>
 </li>
+<li><strong>稳定的存储</strong>：假定系统中的节点可以访问某种形式的稳定的存储器，这些存储器可以保存故障之前记录的信息，直到节点重启并从故障中恢复（为什么需要稳定的存储？因为每个节点以任意的速度异步操作，可能因为fail stop而重启。所以任何一个节点都可能会在提议被选择后停机再重启，因此解决方案要求节点必须要能够记忆某些信息，从而能在重启后重新载入）</li>
 </ul>
-<p>Example of resolving values when n = 4 and f = 1:</p>
-<p><img src="http://static.zybuluo.com/sqfan/6jwenw1oshgpwdg69okcj6qz/image_1bvepthlf1ipjgsuuea1qej14ko6f.png" alt="image_1bvepthlf1ipjgsuuea1qej14ko6f.png-34.9kB"></p>
-<h2 id="A-Polynomial-Algorithm-The-King-Algorithm"><a href="#A-Polynomial-Algorithm-The-King-Algorithm" class="headerlink" title="A Polynomial Algorithm (The King Algorithm)"></a>A Polynomial Algorithm (The King Algorithm)</h2><p>We can reduce the message size to polynomial with a simple algorithm.</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>在《Paxos made simple》论文描述中将一致性算法中节点的角色分类3类：proposers, acceptors和learners。不同的角色对应于一致性算法中的不同职责。更具体的，算法描叙相关的基本概念如下：</p>
 <ul>
-<li>The number of processors increases to: n &gt; 4f</li>
-<li>The number of rounds increases to 2(f + 1)</li>
-<li>Uses f+1 phases, each taking two rounds.</li>
+<li>proposal value: 提议的值</li>
+<li>proposal number: <strong>提议编号</strong></li>
+<li>proposal: 提议（= 提议编号 + 提议值）</li>
+<li>proposor: 提议发起者，提出不同的建议值（proposoal）供决策者考虑。<code>提议是&lt;N, V&gt;对</code></li>
+<li>acceptor： 提议接收者，负责达成共识。（接受符合一定限制的提案）</li>
+<li>learner：最终决策学习者，不参与提议的处理，学习提议的处理结果。</li>
 </ul>
-<p><img src="http://static.zybuluo.com/sqfan/imhi1feobwcw0fvkt1i1brbb/image_1bveqb3lk1gdip7m1mnu1a791j6a79.png" alt="image_1bveqb3lk1gdip7m1mnu1a791j6a79.png-106kB"></p>
-<h2 id="Asynchronous-Consensus"><a href="#Asynchronous-Consensus" class="headerlink" title="Asynchronous Consensus"></a>Asynchronous Consensus</h2><p>Assumptions</p>
+<p>实际实现中，一个节点往往同时扮演这多个角色（通常是3个）。当在某个提议值上达成共识时我们就说这个值被选出来了。简单起见，在下面的算法分析中，我们只考虑Basic Paxos算法（没有learner这个角色）。</p>
+<h4 id="提议编号"><a href="#提议编号" class="headerlink" title="提议编号"></a>提议编号</h4><p>Paxos能在不可靠的通信信道上进行操作的关键之一是为每个proposal分配一个唯一的ID。Proposal ID是什么以及为什么重要的细节将在稍后带来，这里我们先将这些ID视为与<strong>时间戳（timestamps）</strong>类似的角色：它们不仅让peers能从逻辑上判断一条消息是否比另一条消息更新，而且绕开了分布式系统中一致的、共享的时间概念（notions of time）所固有的复杂性。</p>
+<p>Proposal ID的常见实现是一个简单的整数和一个用于确保唯一性的一个“tie-breaker”组成数对。这里使用的ID的pair的组合模式是 &lt; Integer, 节点的ID（具有唯一性）&gt;， 例如，（1，A）。这些ID是可比较的。为了确定哪个ID在逻辑上更新，第一个整数首先以正常的方式进行比较，并且如果它们相等，则将这些唯一的ID字符串进行字典序比较以打破不分胜负的局面，因而有（5，B）&gt;（4，B）&gt;（4，A）。</p>
+<p><strong>ID的主要目的是保护算法免受延迟和/或重复的消息的影</strong>响。 Paxos使用一个非常简单的规则来实现这一点。如果新收到的消息的ID大于上一个处理的消息的ID，则对其进行处理。否则忽略这条消息。忽略延迟信息的动机并不像忽略重复消息那样显而易见，其原因来自于在Paxos这样一个多步骤的算法中, 与旧的和过期的step相关的消息不被允许干扰当前active step的消息。</p>
+<h3 id="Paxos算法流程"><a href="#Paxos算法流程" class="headerlink" title="Paxos算法流程"></a>Paxos算法流程</h3><p>Paxos算法具体分为两个阶段。</p>
 <ul>
-<li>Communication system is reliable</li>
-<li>Only processor failures (crash / Byzantine)</li>
-<li>Completely asynchronous</li>
+<li>第一阶段（<strong>prepare</strong>）： 提议者选择一个全局唯一的建议值n，并向多数的（过半）接受者（majority of acceptors）发送一个准备请求（prepare request）：prepare(n)。如果一个接受者接收到一个值为n的准备请求，且该请求值比它看到的任何请求值都大，那么它对该请求作出确认答复promise(n)，承诺不再接收任何小于这个n的提议（<strong>并且包括它已经接收了的编号最高的提案（如果有的话）</strong>）</li>
+<li>第二阶段（<strong>accept</strong>）： 如果proposer收到过半的acceptor的确认消息表示他们不会接受n以下的提议, 那么这个proposer给这些acceptor返回附带他的建议值v的确认消息（Accept(n, v)）. 如果一个acceptor收到这样的确认消息{n, v}, acceptor就会接受它(Accepted(n, v)). （<strong>除非在此期间acceptor又收到了一个比n更大的提议.</strong>）</li>
 </ul>
+<p>Basic Paxos算法流程具体流程如下图：</p>
+<p><img src="http://static.zybuluo.com/sqfan/8ilewyjhouw644hjqk9j35og/image_1bvmajadnc8nsuh1tqe1ved19kd25.png" alt="image_1bvmajadnc8nsuh1tqe1ved19kd25.png-402.8kB"></p>
+<p>这里还需要对一个提议值被选择的概念做一个阐述：一个提议值n被选择当且仅当在上述算法的第二阶段超过半数的接收者接收了该值。这里有必要对Paxos算法里的这个majority这个概念多加阐述。</p>
 <blockquote>
-<p><strong>Theorem</strong>: For n ≥ 2, there is no algorithm in the read/write shared memory model that solves the agreement problem and guarantees wait-free termination</p>
+<p>强大多数（Strong Majority/Quorum): 一组由一半以上的接受者组成的集合。</p>
 </blockquote>
-<p><code>Consensus is impossible</code>!!!</p>
+<p>通过上面的描述可知，在节点间达成共识的关键思想就是这个“强大多数”的概念。这个概念的特殊之处在于：任意两个“强大多数”的集合都至少有一个共同的成员节点。Paxos算法通过让提议者向“强大多数”的接收者发送提议来利用这个特性：如果我们可以得到超过半数的节点来对某个单一的提议值达成共识，那么我们已经达成一致；因为所有其他Quorum将包含至少一个此Quorum的节点，而交集内的进程就可以保证正确性被继承，以后被传播出去。同时，这也意味着我们一次可以容忍的错误节点的数量： 若正常工作的节点小于等于半数个节点，就不可能形成多数。</p>
+<p>那为什么要分为两个阶段呢？先说一下prepare阶段的作用。第一，检查是有已经有被批准的值，如果有的话，就用被批准的值。第二，如果之前存在提议还没有被接受，则干掉他们（以便不让他们和我们发生竞争）。</p>
+<p>第一阶段中proposal ID (即prepare()发送的n)有什么特性呢？Paxos算法要求Proposal ID全局唯一且递增。为什么要这样设计呢？这个ID实际上相当于一个虚拟时钟（virtual clock), 所有的acceptors都会使用这个ID，用来保证当它收到任意节点发来的消息时，该消息是最新的（或者说是目前处于Paxos算法最新一轮的消息）而不是过时的消息（系统异步环境下消息的允许任意延迟）。事实上，全局唯一ID（且递增）的生成本身是需要一定的技术来保证的：毕竟需要同时满足高并发、高可用、低延迟这样的需求可不简单。微信的seqvr系统就是专门用来做这种序列生成的。</p>
+<p>是不是算法已经完全没有问题了呢？根据上述过程，当一个proposer发现存在编号更大的提案时将终止提案。这意味着提出一个编号更大的提案会终止之前的提案过程。如果两个节点在这种情况下都转而提出一个编号更大的提案，就可能陷入活锁（live lock），违背了Progress的原则。这种情况下的解决方案是选举出一个leader（用我们之前学的leader election知识），仅允许leader提出提案。但是由于消息传递的不确定性（异步通信模型），可能有多个proposer自认为自己已经成为leader（也就是没有达成谁是leader的consensus）。</p>
+<h3 id="一个示例（不考虑failures）"><a href="#一个示例（不考虑failures）" class="headerlink" title="一个示例（不考虑failures）"></a>一个示例（不考虑failures）</h3><p>2个proposor, 3个acceptor, 1个learner.</p>
 <ul>
-<li>Even in the presence of one single<br>processor (crash) failure</li>
+<li>Phase 1: Prepare/Promise </li>
 </ul>
-<p>Proof of impossibility</p>
+<p><img src="http://static.zybuluo.com/sqfan/zqieqklcxmqscwrcv5504jks/image_1bvmj4ee41pfg1ech1pvtlhh1bn12q.png" alt="image_1bvmj4ee41pfg1ech1pvtlhh1bn12q.png-82.9kB"></p>
+<p>Proposor A和Proposal B分别向3个acceptors发送准备请求prepare(2)和prepare(4).</p>
+<p><img src="http://static.zybuluo.com/sqfan/bazc3scx2b8uh775pfx1ng4k/image_1bvmj3o9go1a4f61bq9j2ad052d.png" alt="image_1bvmj3o9go1a4f61bq9j2ad052d.png-108kB"></p>
+<p>Prepare(2)率先到达Acceptor X,Y. 这两个acceptor向A作出确认答复Promise(0,null)。<br>Prepare(4)率先到达Acceptor Z. Z向B作出确认答复Promise(0,null)。</p>
+<p><img src="http://static.zybuluo.com/sqfan/gd8aghb5o63zx8yijyqcv4go/image_1bvmj2o589801qd21nof81i1c20.png" alt="image_1bvmj2o589801qd21nof81i1c20.png-126.8kB"></p>
+<p>Proposor B的Prepare(4)之后于A到达Acceptor X,Y. X,Y检查发现该请求值（4）比它看到的任何请求值都大（最大是之前A发来的prepare(2)）,那么它对该请求作出确认答复promise(2,null)。</p>
+<p>Proposor A的Prepare(2)之后于B到达Acceptor Z.因为请求值（2）小于之前处理的最大请求值4，该消息被忽略。</p>
 <ul>
-<li>Impossibility for shared memory<ul>
-<li>The (n-1)-resilient case (wait-free case)</li>
-<li>The 1-resilient case</li>
+<li>Phase 2: Accept/Accepted<br><img src="http://static.zybuluo.com/sqfan/rt9lujh3o79azyjlln6vz782/image_1bvmj64o24gqa4m1fut1qgv13k837.png" alt="image_1bvmj64o24gqa4m1fut1qgv13k837.png-78.7kB"></li>
+</ul>
+<p>Proposal A收到了2/3(超过半数)的promise消息，于是给这些acceptor返回附带他的建议值v的确认消息<code>Accept(2,100)</code>. 因为在phase1之后所有的acceptor都看到了目前最大的promise值是B发来的4，所以A本次发给acceptors的accept消息都将被忽略。</p>
+<p><img src="http://static.zybuluo.com/sqfan/4ilw569xoojo21mlbbzxms2h/image_1bvmj6lggiit1oik14nq20u1maj3k.png" alt="image_1bvmj6lggiit1oik14nq20u1maj3k.png-99.1kB"><br>Proposal B也收到了3/3(超过半数)的promise消息，于是给这些acceptor返回附带他的建议值v的确认消息<code>Accept(4,50)</code>. Acceptor X，Y, Z检查本地最大提议值和Accept的ID相同，于是将<4,50>写入本地，并返回Accepted（）消息表示确认接受。Learner会学习到这一情况并把value=50被选择的情况记录下来，并告知proposer A.</4,50></p>
+<h3 id="Paxos的属性"><a href="#Paxos的属性" class="headerlink" title="Paxos的属性"></a>Paxos的属性</h3><p>Paxos的属性论文里有详细列出，为了完整起见，我还是列在这里，完整的推导过程可以参见维基百科上的<a href="https://zh.wikipedia.org/wiki/Paxos算法" target="_blank" rel="external">Paxos算法</a>。</p>
+<ul>
+<li>P1：一个acceptor必须接受（accept）第一次收到的提案。</li>
+<li>P2：一旦一个具有value v的提案被批准（chosen），那么之后批准（chosen）的提案必须具有value v。<ul>
+<li>P2a：一旦一个具有value v的提案被批准（chosen），那么之后任何acceptor再次接受（accept）的提案必须具有value v。</li>
+<li>P2b：一旦一个具有value v的提案被批准（chosen），那么以后任何proposer提出的提案必须具有value v。</li>
+<li>P2c：如果一个编号为n的提案具有value v，那么存在一个多数派，要么他们中所有人都没有接受（accept）编号小于n<br>的任何提案，要么他们已经接受（accept）的所有编号小于n的提案中编号最大的那个提案具有value v。</li>
 </ul>
 </li>
-<li>Impossibility for message passing <ul>
-<li>Simulation</li>
 </ul>
-</li>
-<li>Impossibility motivates the use of <code>failure detectors</code>.<ul>
-<li>E.g., “The weakest failure detector for solving consensus”, JACM 43(4).</li>
-</ul>
-</li>
-</ul>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Let f be the maximum number of faulty processors.</p>
-<p><img src="http://static.zybuluo.com/sqfan/19nqclsounkyu7x122nfsvow/image_1bvesf5cr18v9imp1b2l19cbkp2aq.png" alt="image_1bvesf5cr18v9imp1b2l19cbkp2aq.png-45.2kB"></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] <a href="http://hagit.net.technion.ac.il/publications/dc/" target="_blank" rel="external">Attiya, Hagit, and Jennifer Welch. <strong>Distributed computing</strong>: fundamentals, simulations, and advanced topics. Vol. 19. John Wiley &amp; Sons, 2004.</a>.<br>[2] <a href="https://www.youtube.com/watch?v=_e4wNoTV3Gw&amp;index=6&amp;list=PLOE1GTZ5ouRPbpTnrZ3Wqjamfwn_Q5Y9A" target="_blank" rel="external">Byzantine Fault Tolerance, Distributed System (A free online class), by Chris Colohan</a>.<br>[3] The Byzantine Generals Problem, Leslie Lamport, Robert Shostack and Mashall Peace.  ACM TOPLAS 4.3, 1982.<br>[4] <a href="https://parasol.tamu.edu/~welch/teaching/668.s14/" target="_blank" rel="external">CSCE 668: Distributed Algorithms and Systems Spring 2014</a>.</p>
+<h3 id="Paxos算法主要贡献"><a href="#Paxos算法主要贡献" class="headerlink" title="Paxos算法主要贡献"></a>Paxos算法主要贡献</h3><p>Paxos算法是第一个被证明的一致性算法，也是最著名的分布式一致性算法。Google的粗粒度锁服务<code>Chubby</code>的底层一致性实现就是以Paxos算法为基础。用户只需调用Chubby的锁服务接口就能够实现分布式系统中多个进程之间粗粒度的同步控制，从而保证分布式数据的一致性。Chubby的开发者对Paxos曾有过这样的评价：“所有的一致性协议本质上要么是Paxos，要么就是其变体”。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Paxos算法可以说是分布式系统中最重要的一个算法。虽然Lamport在《Paxos made simple》中声称“Paxos is among the simplest and most obvious of distributed algorithms”, 但是个人在仔细研读几遍这篇论文后，还是觉得文章还是比较晦涩难懂的，虽然全文没有涉及到一个数学公式，都是文字描述，但是也没有直观的图来说明，最后还是查阅了其他各路资料，其中Chris Colohan在油管上一个关于paxos的lectture帮助很大。感觉Paxos最难理解的地方就在于要能搞清楚是什么因素导致该协议以这种方式呈现，而非其最终协议本身的内容。结合具体的应用场景来理解Paxos或许更好一点。</p>
+<p>在本篇讨论中，实际上是讨论了Basic Paxos算法。而Basic Paxos只是理论模型，实际中使用的性能上更好的Multi-Paxos。Multi Paxos基于Basic Paxos, 将原来的2阶段过程（至少需要2次网络交互 + 2次本地持久化）简化为1个阶段，从而加速了提交速度。但是由于Multi-Paxos在理解和实现的复杂性，另一个改进版的一致性协议——Raft应运而生。Raft相比Paxos而言更加健全，更加易懂，虽然其在核心协议上基本是继承了Paxos中基于多数派的协议，但是其核心的贡献在于定义了易于实现的分布式一致性协议的事实标准。从某种意义上说，Raft不能算是一个新的协议，而是Paxos的一个具体化和简单化版本。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1] Lamport, Leslie. “Paxos made simple.” ACM Sigact News 32.4 (2001): 18-25.<br>[2] <a href="https://www.youtube.com/watch?v=VdSO8g1Yv0w" target="_blank" rel="external">Paxos lecture by <strong>Chris Colohan</strong>, video</a><br>[3] <a href="https://understandingpaxos.wordpress.com/" target="_blank" rel="external">Understanding Paxos, blog</a><br>[4] <a href="http://people.csail.mit.edu/alinush/6.824-spring-2015/stumbled/paxos-explained-from-scratch.pdf" target="_blank" rel="external">Tutorial Summary: Paxos Explained from Scratch, pdf</a><br>[5] <a href="https://courses.cs.washington.edu/courses/cse452/13sp/resources/cse452_sec3.pdf" target="_blank" rel="external">Paxos by example, ppt</a></p>
 
       
     </div>
@@ -695,8 +615,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/19/L04-Mutual-Exclusion/" rel="next" title="L04-Mutual Exclusion">
-                <i class="fa fa-chevron-left"></i> L04-Mutual Exclusion
+              <a href="/2017/10/26/L05-Fault-tolerant-consensus/" rel="next" title="L05-Fault-tolerant consensus">
+                <i class="fa fa-chevron-left"></i> L05-Fault-tolerant consensus
               </a>
             
           </div>
@@ -704,10 +624,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/23/分布式一致性算法——Paxos简介/" rel="prev" title="分布式一致性算法——Paxos简介">
-                分布式一致性算法——Paxos简介 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -921,7 +837,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Processor-Failures-in-Message-Passing"><span class="nav-number">2.</span> <span class="nav-text">Processor Failures in Message Passing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Failure-Matrix"><span class="nav-number">2.1.</span> <span class="nav-text">Failure Matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Negative-result-for-link-failures"><span class="nav-number">2.2.</span> <span class="nav-text">Negative result for link failures</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Consensus-Problem"><span class="nav-number">3.</span> <span class="nav-text">The Consensus Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Consensus-algorithm-in-the-presence-of-crash-failures"><span class="nav-number">3.1.</span> <span class="nav-text">Consensus algorithm in the presence of crash failures</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Worst-case-scenario"><span class="nav-number">3.1.1.</span> <span class="nav-text">Worst case scenario</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consensus-with-Byzantine-Failures"><span class="nav-number">4.</span> <span class="nav-text">Consensus with Byzantine Failures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exponential-Information-Gathering-EIG-Algorithm"><span class="nav-number">5.</span> <span class="nav-text">Exponential Information Gathering (EIG) Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-Tree-Data-Structure"><span class="nav-number">5.1.</span> <span class="nav-text">Local Tree Data Structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filling-in-the-Tree-Nodes"><span class="nav-number">5.2.</span> <span class="nav-text">Filling in the Tree Nodes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calculating-the-Decision"><span class="nav-number">5.3.</span> <span class="nav-text">Calculating the Decision</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Polynomial-Algorithm-The-King-Algorithm"><span class="nav-number">6.</span> <span class="nav-text">A Polynomial Algorithm (The King Algorithm)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Asynchronous-Consensus"><span class="nav-number">7.</span> <span class="nav-text">Asynchronous Consensus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">8.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">9.</span> <span class="nav-text">References</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Paxos算法分析"><span class="nav-number">2.</span> <span class="nav-text">Paxos算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式一致性问题-The-distributed-consensus-problem）"><span class="nav-number">2.1.</span> <span class="nav-text">分布式一致性问题(The distributed consensus problem）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个原则（requirements）"><span class="nav-number">2.2.</span> <span class="nav-text">两个原则（requirements）}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本假设（assumptions）"><span class="nav-number">2.3.</span> <span class="nav-text">基本假设（assumptions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">2.4.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提议编号"><span class="nav-number">2.4.1.</span> <span class="nav-text">提议编号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos算法流程"><span class="nav-number">2.5.</span> <span class="nav-text">Paxos算法流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个示例（不考虑failures）"><span class="nav-number">2.6.</span> <span class="nav-text">一个示例（不考虑failures）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos的属性"><span class="nav-number">2.7.</span> <span class="nav-text">Paxos的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos算法主要贡献"><span class="nav-number">2.8.</span> <span class="nav-text">Paxos算法主要贡献</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
