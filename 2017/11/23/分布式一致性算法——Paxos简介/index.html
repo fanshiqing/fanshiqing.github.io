@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/gd8aghb5o63zx8yijyqcv4go/image_1bvmj2o589801qd21nof81i1c20.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/rt9lujh3o79azyjlln6vz782/image_1bvmj64o24gqa4m1fut1qgv13k837.png">
 <meta property="og:image" content="http://static.zybuluo.com/sqfan/4ilw569xoojo21mlbbzxms2h/image_1bvmj6lggiit1oik14nq20u1maj3k.png">
-<meta property="og:updated_time" content="2017-11-24T09:31:07.000Z">
+<meta property="og:updated_time" content="2017-11-24T11:14:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式一致性算法——Paxos简介">
 <meta name="twitter:description" content="背景介绍在分布式系统中，一个核心的问题就是数据一致性问题。Paxos一致性算法是分布式系统中的经典算法，由分布式大师Lamport提出，用来解决一个分布式系统中如何就某个决议（值）达成一致的问题，基于消息传递且具有高度容错性。用好理解的方式说，就是在一个选举过程中，让不同的选民最终做出一致的决定。Lamport本人也因其对分布式系统的杰出理论贡献获得了2013年的图灵奖。">
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  4,292
+                  4,269
                 </span>
               
 
@@ -466,7 +466,7 @@
 </ul>
 </blockquote>
 <p>在分布式系统中，我们如何能够在多个选项中选择一个单独的动作（action）呢？又该如何让这个动作能以容错（fault-tolerant）的方式来完成呢？这是分布式共识问题的基本问题。这个问题听起来似乎很简单：只需要选择一个节点来做决定嘛！但显然这会引入单点失效问题：如果这个唯一的决策者失效了，那所有其他节点就没有办法知道该采取哪个行动了（这其实违反了接下来要介绍的Paxos原则之一的存活性原则）。那在决策者失效时重新选择一个决策者会如何？但这可能会导致最终有两个决策者，而每个决策者可能做出不同的决定，导致共识不能达成。好吧这个问题似乎不那么简单。让我们来看看Paxos是如何解决这个问题的。</p>
-<h3 id="两个原则（requirements）"><a href="#两个原则（requirements）" class="headerlink" title="两个原则（requirements）}"></a>两个原则（requirements）}</h3><p>现在我们已经对这个一致性问题有了直觉上的认识，下面来阐述解决方案的两个原则：安全原则和存活原则。</p>
+<h3 id="两个原则（requirements）"><a href="#两个原则（requirements）" class="headerlink" title="两个原则（requirements）"></a>两个原则（requirements）</h3><p>现在我们已经对这个一致性问题有了直觉上的认识，下面来阐述解决方案的两个原则：安全原则和存活原则。</p>
 <ul>
 <li>安全原则 (safety)：系统不会产生“错误”的答案<ul>
 <li>只有被提议（proposed）的值才可能被选中（chosen)</li>
@@ -482,18 +482,18 @@
 </ul>
 <h3 id="基本假设（assumptions）"><a href="#基本假设（assumptions）" class="headerlink" title="基本假设（assumptions）"></a>基本假设（assumptions）</h3><p>除了上述的两条原则之外，我们还需要对分布式系统的工作原理以及可能失效的情形作出一些假设。分布式系统中的节点通信主要存在两种模型：共享内存和消息传递。Paxos算法基于消息传递。在基于消息传递的分布式系统中，不可避免地会出现消息延迟、丢失、重复的情形。此外，在消息传递模型中，节点故障可以分为失效停止（fail stop）和拜占庭错误（Byzantine Failure）（所有不是失效-停止的错误都可以归为拜占庭错误）两大类，基础Paxos算法不考虑拜占庭将军问题。更具体地，基础Paxos算法的基本假设具体如下。</p>
 <ul>
-<li><strong>失效-停止</strong> 假设<ul>
+<li><strong>失效-停止</strong> <ul>
 <li>失败-停止： 当一个节点发生故障时，它将完全停止工作</li>
 <li>重启：故障的节点重新启动时可以恢复正常操作</li>
 </ul>
 </li>
-<li><strong>消息</strong>（messages）相关的假设：基于消息传递的异步通信<ul>
+<li><strong>消息</strong><ul>
 <li>消息可以丢失</li>
 <li>消息可以重复发送</li>
-<li>消息可以延迟(只要等待足够的时间，消息就会被送到)（乱序到达）但是消息不会被篡改（即不考虑拜占庭错误）</li>
+<li>消息可以延迟(只要等待足够的时间，消息就会被送到),但是消息不会被篡改（即不考虑拜占庭错误）</li>
 </ul>
 </li>
-<li><strong>稳定的存储</strong>：假定系统中的节点可以访问某种形式的稳定的存储器，这些存储器可以保存故障之前记录的信息，直到节点重启并从故障中恢复（为什么需要稳定的存储？因为每个节点以任意的速度异步操作，可能因为fail stop而重启。所以任何一个节点都可能会在提议被选择后停机再重启，因此解决方案要求节点必须要能够记忆某些信息，从而能在重启后重新载入）</li>
+<li><strong>稳定的存储</strong> 假定系统中的节点可以访问某种形式的稳定的存储器，这些存储器可以保存故障之前记录的信息，直到节点重启并从故障中恢复（为什么需要稳定的存储？因为每个节点以任意的速度异步操作，可能因为fail stop而重启。所以任何一个节点都可能会在提议被选择后停机再重启，因此解决方案要求节点必须要能够记忆某些信息，从而能在重启后重新载入）</li>
 </ul>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>在《Paxos made simple》论文描述中将一致性算法中节点的角色分类3类：proposers, acceptors和learners。不同的角色对应于一致性算法中的不同职责。更具体的，算法描叙相关的基本概念如下：</p>
 <ul>
@@ -535,8 +535,9 @@
 <p>Proposor B的Prepare(4)之后于A到达Acceptor X,Y. X,Y检查发现该请求值（4）比它看到的任何请求值都大（最大是之前A发来的prepare(2)）,那么它对该请求作出确认答复promise(2,null)。</p>
 <p>Proposor A的Prepare(2)之后于B到达Acceptor Z.因为请求值（2）小于之前处理的最大请求值4，该消息被忽略。</p>
 <ul>
-<li>Phase 2: Accept/Accepted<br><img src="http://static.zybuluo.com/sqfan/rt9lujh3o79azyjlln6vz782/image_1bvmj64o24gqa4m1fut1qgv13k837.png" alt="image_1bvmj64o24gqa4m1fut1qgv13k837.png-78.7kB"></li>
+<li>Phase 2: Accept/Accepted</li>
 </ul>
+<p><img src="http://static.zybuluo.com/sqfan/rt9lujh3o79azyjlln6vz782/image_1bvmj64o24gqa4m1fut1qgv13k837.png" alt="image_1bvmj64o24gqa4m1fut1qgv13k837.png-78.7kB"></p>
 <p>Proposal A收到了2/3(超过半数)的promise消息，于是给这些acceptor返回附带他的建议值v的确认消息<code>Accept(2,100)</code>. 因为在phase1之后所有的acceptor都看到了目前最大的promise值是B发来的4，所以A本次发给acceptors的accept消息都将被忽略。</p>
 <p><img src="http://static.zybuluo.com/sqfan/4ilw569xoojo21mlbbzxms2h/image_1bvmj6lggiit1oik14nq20u1maj3k.png" alt="image_1bvmj6lggiit1oik14nq20u1maj3k.png-99.1kB"><br>Proposal B也收到了3/3(超过半数)的promise消息，于是给这些acceptor返回附带他的建议值v的确认消息<code>Accept(4,50)</code>. Acceptor X，Y, Z检查本地最大提议值和Accept的ID相同，于是将<4,50>写入本地，并返回Accepted（）消息表示确认接受。Learner会学习到这一情况并把value=50被选择的情况记录下来，并告知proposer A.</4,50></p>
 <h3 id="Paxos的属性"><a href="#Paxos的属性" class="headerlink" title="Paxos的属性"></a>Paxos的属性</h3><p>Paxos的属性论文里有详细列出，为了完整起见，我还是列在这里，完整的推导过程可以参见维基百科上的<a href="https://zh.wikipedia.org/wiki/Paxos算法" target="_blank" rel="external">Paxos算法</a>。</p>
@@ -838,7 +839,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Paxos算法分析"><span class="nav-number">2.</span> <span class="nav-text">Paxos算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式一致性问题-The-distributed-consensus-problem）"><span class="nav-number">2.1.</span> <span class="nav-text">分布式一致性问题(The distributed consensus problem）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个原则（requirements）"><span class="nav-number">2.2.</span> <span class="nav-text">两个原则（requirements）}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本假设（assumptions）"><span class="nav-number">2.3.</span> <span class="nav-text">基本假设（assumptions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">2.4.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提议编号"><span class="nav-number">2.4.1.</span> <span class="nav-text">提议编号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos算法流程"><span class="nav-number">2.5.</span> <span class="nav-text">Paxos算法流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个示例（不考虑failures）"><span class="nav-number">2.6.</span> <span class="nav-text">一个示例（不考虑failures）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos的属性"><span class="nav-number">2.7.</span> <span class="nav-text">Paxos的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos算法主要贡献"><span class="nav-number">2.8.</span> <span class="nav-text">Paxos算法主要贡献</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Paxos算法分析"><span class="nav-number">2.</span> <span class="nav-text">Paxos算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式一致性问题-The-distributed-consensus-problem）"><span class="nav-number">2.1.</span> <span class="nav-text">分布式一致性问题(The distributed consensus problem）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个原则（requirements）"><span class="nav-number">2.2.</span> <span class="nav-text">两个原则（requirements）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本假设（assumptions）"><span class="nav-number">2.3.</span> <span class="nav-text">基本假设（assumptions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">2.4.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提议编号"><span class="nav-number">2.4.1.</span> <span class="nav-text">提议编号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos算法流程"><span class="nav-number">2.5.</span> <span class="nav-text">Paxos算法流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个示例（不考虑failures）"><span class="nav-number">2.6.</span> <span class="nav-text">一个示例（不考虑failures）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos的属性"><span class="nav-number">2.7.</span> <span class="nav-text">Paxos的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos算法主要贡献"><span class="nav-number">2.8.</span> <span class="nav-text">Paxos算法主要贡献</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
@@ -884,7 +885,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共11.7k字</span>
+  <span class="post-count">博客全站共11.6k字</span>
 </div>
 
         
